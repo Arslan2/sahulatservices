@@ -1,0 +1,4226 @@
+
+<html>
+    <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Welcome to Ejoyy</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link id="favicon" href="assets/images/favicon.png" rel="shortcut icon" type="image/png">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>-->
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i,800,800i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/custom.css"/>
+        <script>
+            function toggleAngleBtnfooterone()
+            {
+                $(".Ejoyy-ul-div-one-last-span-one i").toggleClass("fa-angle-up").toggleClass("fa-angle-down");
+                $(".Ejoyy-ul-div-one-last-span-one").toggleClass("Ejoyy-color").toggleClass("Ejoyy-new-Color");
+            }
+            function toggleAngleBtnfootertwo()
+            {
+                $(".Ejoyy-ul-div-one-last-span-two i").toggleClass("fa-angle-up").toggleClass("fa-angle-down");
+                $(".Ejoyy-ul-div-one-last-span-two").toggleClass("Ejoyy-color").toggleClass("Ejoyy-new-Color");
+            }
+            function toggleAngleBtnfooterthree()
+            {
+                $(".Ejoyy-ul-div-one-last-span-three i").toggleClass("fa-angle-up").toggleClass("fa-angle-down");
+                $(".Ejoyy-ul-div-one-last-span-three").toggleClass("Ejoyy-color").toggleClass("Ejoyy-new-Color");
+            }
+            function toggleAngleBtnfooterfour()
+            {
+                $(".Ejoyy-ul-div-one-last-span-four i").toggleClass("fa-angle-up").toggleClass("fa-angle-down");
+                $(".Ejoyy-ul-div-one-last-span-four").toggleClass("Ejoyy-color").toggleClass("Ejoyy-new-Color");
+            }
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#addressMap').change(function () {
+                    codeAddress();
+                });
+                // if($(window).width() < 767)
+                // {
+                // $('#mobileAppInfo').show();
+                // if(OS=="Apple")
+                // {
+                // $('#appstoreIcon').show();
+                // }
+                // else if(OS=="Android")
+                // {
+                // $('#androidIcon').show();
+                // }
+                // }
+            });
+            function getCity()
+            {
+                $.ajax({
+                    url: "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDsVc8COYiQxS--tHQ0nuJMJt8FsswBR5I",
+                    method: "POST",
+                    dataType: "json",
+                    success: function (data)
+                    {
+                        console.log(data);
+                        if(document.getElementById("lat") !== null){
+                         document.getElementById("lat").value = data.location.lat;   
+                        }
+                        if(document.getElementById("lng") !== null){
+                          document.getElementById("lng").value = data.location.lng;  
+                        }
+                        
+                        currentAddress();
+                        initialize();
+                    },
+                    error: function (html)
+                    {
+                        console.log(html);
+                        document.write(html.location);
+                    }
+                });
+            }
+
+        </script>
+        <script type="text/javascript">
+            function currentAddress() {
+                var geolocation = document.getElementById("lat").value + "," + document.getElementById("lng").value;//'31.427981,74.246615';
+                var jsonReq = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + geolocation + "&key=AIzaSyA6NSEtpNZ1mWsBWfpHAbLlxczYNdPsSjg";
+                $.getJSON(jsonReq, showAddress);
+            }
+            function showAddress(data) {
+                //alert(data.results[0].formatted_address);
+                document.getElementById('addressMap').value = data.results[0].formatted_address;
+                //window.setTimeout(codeAddress(), 600);
+                //loadAddress();
+                //alert(document.getElementById("lati").value+","+document.getElementById("lngi").value)
+                //document.getElementById("lati1").value=document.getElementById("lati").value;
+                //document.getElementById("lngi1").value=document.getElementById("lngi").value;
+            }
+        </script>
+        <script type="text/javascript">
+
+            var geocoder;
+            var map;
+            var mapOptions = {
+                zoom: 15,
+                mapTypeId: "roadmap"//google.maps.MapTypeId.ROADMAP
+            }
+
+            var marker;
+            function initialize() {
+                geocoder = new google.maps.Geocoder();
+                if(document.getElementById('map_canvas') != null){
+                    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+                }
+                
+                loadCodeAddress();
+                currentAddress();
+
+                var input = document.getElementById('addressMap');
+                new google.maps.places.Autocomplete(input);
+                //loadCodeAddress();
+                //initAutocomplete();
+            }
+            function currentAddress() {
+                if(document.getElementById("lat") != null && document.getElementById("lng") != null){
+                 var geolocation = document.getElementById("lat").value + "," + document.getElementById("lng").value;//'31.427981,74.246615';   
+                }
+                
+                var jsonReq = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + geolocation + "&key=AIzaSyBec81FMXTkbibE4uaIDBBs3C_jYFRF0EM";
+                $.getJSON(jsonReq, showAddress);
+            }
+            function showAddress(data) {
+                //alert(data.results[0].formatted_address);
+                document.getElementById('addressMap').value = data.results[0].formatted_address;
+                //window.setTimeout(codeAddress(), 600);
+                //loadAddress();
+                //alert(document.getElementById("lati").value+","+document.getElementById("lngi").value)
+                //document.getElementById("lati1").value=document.getElementById("lati").value;
+                //document.getElementById("lngi1").value=document.getElementById("lngi").value;
+            }
+            function getLocation() {
+                //getCity();
+                if (navigator.geolocation)
+                {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                }
+            }
+            function showPosition(position)
+            {
+                //alert(position.coords.latitude+","+position.coords.longitude);
+                document.getElementById("lat").value = position.coords.latitude;
+                document.getElementById("lng").value = position.coords.longitude;
+                initialize();
+            }
+            function loadAddress() {
+                getLocation();
+                //codeAddress();
+            }
+            function loadCodeAddress() {
+                if(document.getElementById('addressMap') !== null){
+                  var address = document.getElementById('addressMap').value;  
+                }
+                if(document.getElementById('lat') !== null){
+                  var lati = document.getElementById('lat').value;  
+                }
+                
+                if(document.getElementById('lng') !== null){
+                 var lngi = document.getElementById('lng').value;   
+                }
+                
+                if(lati != null && lngi != null){
+                  var latlng = new google.maps.LatLng(lati, lngi);  
+                }
+                if(map != undefined){
+                  map.setCenter(latlng);  
+                }
+                
+                if (marker)
+                    marker.setMap(null);
+                marker = new google.maps.Marker({
+                    map: map,
+                    position: latlng,
+                    draggable: true
+                });
+                google.maps.event.addListener(marker, "dragend", function () {
+                    document.getElementById('lat').value = marker.getPosition().lat();
+                    document.getElementById('lng').value = marker.getPosition().lng();
+                    currentAddress();
+                });
+                //alert(address);
+                /*alert('31.427981,74.246615');
+                 var latlng=new google.maps.LatLng('31.427981','74.246615');
+                 map.setCenter(latlng);
+                 marker = new google.maps.Marker({
+                 map: map,
+                 position: latlng,
+                 draggable: true
+                 });*/
+                /*google.maps.event.addListener(marker, "dragend", function() {
+                 document.getElementById('lat').value = marker.getPosition().lat();
+                 document.getElementById('lng').value = marker.getPosition().lng();
+                 });*/
+                /*geocoder.geocode( { 'address': address}, function(results, status) {
+                 if (status == google.maps.GeocoderStatus.OK) {
+                 map.setCenter(results[0].geometry.location);
+                 if(marker)
+                 marker.setMap(null);
+                 marker = new google.maps.Marker({
+                 map: map,
+                 position: results[0].geometry.location,
+                 draggable: true
+                 });*/
+                /*google.maps.event.addListener(marker, "dragend", function() {
+                 document.getElementById('lati').value = marker.getPosition().lat();
+                 document.getElementById('lngi').value = marker.getPosition().lng();
+                 });*/
+                /*} else {
+                 alert('Geocode was not successful for the following reason: ' + status);
+                 }
+                 });*/
+            }
+            function codeAddress() {
+                var address = document.getElementById('addressMap').value;
+                geocoder.geocode({'address': address}, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        document.getElementById('lat').value = results[0].geometry.location.lat();
+                        document.getElementById('lng').value = results[0].geometry.location.lng();
+                        var geolocation = results[0].geometry.location.lat() + "," + results[0].geometry.location.lng();
+                        var jsonReq = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + geolocation + "&key=AIzaSyBec81FMXTkbibE4uaIDBBs3C_jYFRF0EM";
+                        $.getJSON(jsonReq, showAddress);
+                        if (marker)
+                            marker.setMap(null);
+                        marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location,
+                            draggable: true
+                        });
+                        google.maps.event.addListener(marker, "dragend", function () {
+                            document.getElementById('lat').value = marker.getPosition().lat();
+                            document.getElementById('lng').value = marker.getPosition().lng();
+                            currentAddress();
+                        });
+                    }
+                });
+            }
+        </script>
+        <script>
+            function initAutocomplete()
+            {
+                var inputArea = document.getElementById('addressMap');
+                var searchArea = new google.maps.places.Autocomplete(inputArea);
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6NSEtpNZ1mWsBWfpHAbLlxczYNdPsSjg&libraries=places&callback=initAutocomplete" async defer></script>
+
+    <script src="https://google.com/recaptcha/api.js" async defer></script> 
+
+
+    </head>
+    <body id="react-container" style="height:100%;">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light  justify-content-between">
+                <div class="container">
+                    <a class="navbar-brand logo" href="index"><img src="assets/images/logo.png"/></a>
+                    <button class="navbar-toggler pull-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav ml-auto">
+                            <a class="nav-item nav-link style_hover  " href="index">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-item nav-link style_hover " href="about">About</a>
+                            <a class="nav-item nav-link style_hover " href="skiller-registration">Become Partner</a>
+                            <a class="nav-item nav-link style_hover " href="services">Services</a>
+                            <!--<a class="nav-item nav-link style_hover" href="#">Career</a>-->
+                            <a class="nav-item nav-link style_hover " href="shop">Products</a>
+                            <a class="nav-item nav-link style_hover " href="cart">Cart</a>
+                            <a class="nav-item nav-link style_hover " href="wishlist">Wishlist</a>
+                            <!--<a class="nav-item nav-link style_hover" href="checkout">Checkout</a>-->
+                            <a class="nav-item nav-link style_hover " href="careers">Careers</a>
+                            <a class="nav-item nav-link style_hover " href="contact">Contact</a>
+                                                               <a class="nav-item nav-link style_hover" href="#" data-toggle="modal" data-target="#myModal">Login | Signup</a>
+                                                    </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <style>
+            .form-group .required .control-label:after {
+                content:"*";color:red;
+            }
+        </style>
+        <!-- quantity modal for booking -->
+        <style>
+            .jobdesc ul{
+                list-style:square!important;
+            }
+            .table-borderless thead th,  .table-borderless tbody td, .table-borderless tbody th{
+                border-bottom:0px!important;
+                border-top:0px!important;
+            }
+            .number-input.number-input button:focus{
+                outline:0px!important;
+                outline:none!important;
+            }
+            .number-input input[type="number"] {
+                -webkit-appearance: textfield;
+                -moz-appearance: textfield;
+                appearance: textfield;
+            }
+
+            .number-input input[type=number]::-webkit-inner-spin-button,
+            .number-input input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+            }
+
+            .number-input {
+                margin-bottom: 1rem;
+                float:right!important;
+            }
+
+            .number-input button {
+                -webkit-appearance: none;
+                background-color: transparent;
+                border: none;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                margin: 0;
+                position: relative;
+            }
+
+            .number-input button:before,
+            .number-input button:after {
+                display: inline-block;
+                position: absolute;
+                content: '';
+                height: 2px;
+                transform: translate(-50%, -50%);
+            }
+
+            .number-input button.plus:after {
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+
+            .number-input input[type=number] {
+                text-align: center;
+            }
+
+            .number-input.number-input {
+                border: 1px solid #ced4da;
+                width: 10rem;
+                border-radius: .25rem;
+            }
+
+            .number-input.number-input button {
+                width: 2.6rem;
+                height: .7rem;
+            }
+
+            .number-input.number-input button.minus {
+                padding-left: 10px;
+            }
+
+            .number-input.number-input button:before,
+            .number-input.number-input button:after {
+                width: .7rem;
+                background-color: #495057;
+            }
+
+            .number-input.number-input input[type=number] {
+                max-width: 4rem;
+                padding: .5rem;
+                border: 1px solid #ced4da;
+                border-width: 0 1px;
+                font-size: 1rem;
+                height: 2rem;
+                color: #495057;
+            }
+
+            @media not all and (min-resolution:.001dpcm) {
+                @supports(-webkit-appearance: none) and (stroke-color:transparent) {
+
+                    .number-input.def-number-input.safari_only button:before,
+                        .number-input.def-number-input.safari_only button:after {
+                        margin-top: -.3rem;
+                    }
+                }
+            }
+
+
+            .donate-now {
+                list-style-type:none;
+                margin:25px 0 0 0;
+                padding:0;
+            }
+
+            .donate-now .donate-now-start {
+                margin:0 5px 0 0;
+                width:100px;
+                height:68px;
+                position:relative;
+            }
+
+            .donate-now label, .donate-now input {
+                display:block;
+                position:absolute;
+                top:0;
+                left:0;
+                right:0;
+                bottom:0;
+            }
+
+            .donate-now input[type="radio"] {
+                opacity:0.011;
+                z-index:100;
+            }
+
+            .donate-now input[type="radio"]:checked + label {
+                background:#fff;
+                border:2px solid #666;
+                color:#000;
+            }
+
+
+            .donate-now label {
+                padding:5px;
+                border:1px solid #ddd;
+                color:#aaa;
+                cursor:pointer;
+                border-radius:4px;
+                z-index:90;
+            }
+
+            .donate-now label:hover {
+                background:#eee;
+            }
+            .donate-now label .p-one{
+                font-size:12px;
+                font-weight:400;
+                letter-spacing:1px;
+            }
+            .donate-now label .p-two{
+                font-size:22px;
+                letter-spacing:1px;
+            }
+
+
+
+
+
+
+
+
+            .donate-now-two {
+                list-style-type:none;
+                margin:25px 0 0 0;
+                padding:0;
+            }
+
+            .donate-now-two .donate-now-start-two {
+                margin:0 5px 0 0;
+                width:100px;
+                height:48px;
+                position:relative;
+            }
+
+            .donate-now-two label, .donate-now-two input {
+                display:block;
+                position:absolute;
+                top:0;
+                left:0;
+                right:0;
+                bottom:0;
+            }
+
+            .donate-now-two input[type="radio"] {
+                opacity:0.011;
+                z-index:100;
+            }
+
+            .donate-now-two input[type="radio"]:checked + label {
+                background:#fff;
+                border:2px solid #666;
+                color:#000;
+            }
+
+            .grecaptcha-badge { 
+                visibility: hidden;
+            }
+            .donate-now-two label {
+                padding:5px;
+                padding-top:6px;
+                border:1px solid #ddd;
+                color:#aaa;
+                cursor:pointer;
+                border-radius:4px;
+                z-index:90;
+            }
+
+            .donate-now-two label:hover {
+                background:#eee;
+            }
+            .donate-now-two label .p-one{
+                font-size:16px;
+                font-weight:400;
+                letter-spacing:1px;
+            }
+            .donate-now-start-two label p{
+                font-size:12px!important;
+
+            }
+        </style>
+<style>
+    /** SPINNER CREATION **/
+    .pac-container { z-index: 100000!important; }
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 50px auto 35px auto;
+        z-index: 9999;
+        width: 60px;
+        height: 60px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @-webkit-keyframes spin {
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+    /* radio buttons css*/
+
+    /** MODAL STYLING **/
+    .modal-backdrop.show {
+        opacity: 0.75;
+    }
+
+
+    .checked {
+        color: orange;
+    }
+</style>
+
+<style type="text/css">
+    /*16aug19     07April
+    .main_heading{
+      font-size: 47px;
+      color: #fff;
+      margin:0;
+      font-weight: 700;
+      position: relative;
+      font-family: 'Merriweather Sans', sans-serif!important;
+      text-shadow: 0 1px 8px rgba(0,0,0,.2);
+    }
+    .main_heading_two{
+      font-weight: 500;
+      font-family: 'Merriweather Sans', sans-serif!important;
+      color: #fff;
+      margin-top: 8px;
+      margin-bottom: 30px;
+      position: relative;
+      text-shadow: 0 1px 8px rgba(0,0,0,.4);
+      font-size: 21px;
+    }
+  @media (max-width: 991px){
+    .main_heading{font-size:36px;}
+     .main_heading_two{font-size: 18px;}
+    }
+  @media (max-width: 767px){
+    .main_heading{font-size:28px;}
+     .main_heading_two{font-size: 14px;}
+    }
+  @media (max-width: 576px) and (min-width:0px){
+    .main_heading{font-size:24px;}
+     .main_heading_two{font-size: 12px;}
+    }
+    .mytable_search_results_table #autoCompleteSuggest{
+      width:360px!important;
+      height:120px;
+      overflow:auto;
+      z-index: 4;
+    }
+    .mytable_search_results_table{
+        max-width:80%;
+    }
+    @media (max-width: 500px){
+    .mytable_search_results_table #autoCompleteSuggest{
+      width:auto!important;
+    }
+    .mytable_search_results_table{
+        max-width:80%;
+    }
+    }
+  16aug2019 style starts*/
+
+
+
+    .heading_service{
+        font-size: 47px;
+        color: #fff;
+        margin:0;
+        font-weight: 700;
+        position: relative;
+        font-family: 'Merriweather Sans', sans-serif!important;
+        text-shadow: 0 1px 8px rgba(0,0,0,.2);
+    }
+    .clearfix, .clearfix:after, .clearfix:before{
+        content: " ";
+        display: table;
+    }
+
+
+    ._3fmpyDZmwgiERVmBiqJI2y {
+        background-color: #fff;
+        text-align: center;
+        padding-top: 46px;
+        padding-bottom: 95px;
+        height: 380px;
+        position: relative;
+        font-family: 'Merriweather Sans', sans-serif!important;
+    }
+    .FyqvUAlHomQxHcI9jcV7G {
+        padding-top: 0;
+        height: 100%;
+        font-family: 'Merriweather Sans', sans-serif!important;
+    }
+    @media screen and (min-width: 768px){
+        ._5i54RgeUqKBg-1WgZgW2Q {
+            background-position: 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._1d-keXx9N4mVCe6EIDEXyq {
+            width: auto!important;
+            margin: 0 auto!important;
+            z-index: 4!important;
+            position: relative;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u {
+            float: left;
+            border-radius: 4px;
+            width: 170px;
+            height: 54px;
+            margin-top: 0;
+            background-color: #fff;
+            border: 1px solid #dedede;
+            box-shadow: 0 1px 3px 0 #dedede;
+            box-shadow: none;
+            border: none;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u ._2fUFYWAA7dnCEH9-BUvrfq span {
+            top: 16px;
+        }
+
+    }
+    @media screen and (max-width: 768px){
+        ._3fmpyDZmwgiERVmBiqJI2y {
+            padding-bottom: 0;
+            min-height: 253px;
+            height: auto;
+            padding: 24px;
+            padding-top: 22px;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y .SwKXaiUF5sVFf7o3TkHrI {
+            font-size: 28px!important;
+            text-shadow: none !important;
+            font-weight: 700!important;
+            font-family: 'Merriweather Sans', sans-serif!important;
+            margin-top: 0 !important;
+            color:#fff!important;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._1sXeg7Um0JOssDxy41fhAy {
+            text-shadow: none !important;
+            font-size: 14px!important;
+            margin-bottom: 0!important;
+            margin-top: 8px!important;
+            font-weight: 100!important;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u {
+            box-shadow: none;
+            border: none;
+            width:170px;
+            height:44px!important;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u ._2fUFYWAA7dnCEH9-BUvrfq span {
+            top: 13px!important;
+            left:15px!important;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u ._37R_iCtaJwPiOqFR1umRkV span {
+            top:9px!important;
+            right:16px!important;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 ._12flgAAstjcdXCsD_K1PvI{
+            height:48px!important;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u .yYlfMhkjKjrQ0BerOkMTa {
+
+        }
+        ._2hAL38KLzOgmEOriSGY3QT{
+            margin-bottom:0px!important;
+        }
+        #autoCompleteSuggest{
+            margin-right: 1px;
+            margin-left: -1px;
+
+        }
+
+
+    }
+    @media screen and (max-width: 768px) and (min-width:768px){
+        ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u {
+            margin-top:38px!important;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8{
+            margin-top:38px!important;
+        }
+        ._2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw {
+            margin-bottom:0px;
+        }
+        #autoCompleteSuggest{
+            margin-right: 1px;
+            margin-left: -1px;
+
+        }
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y .IbonW3zjhUZdcioNFh-3h {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+        height: 100%;
+        background-color: rgba(77,77,77,.5);
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y .SwKXaiUF5sVFf7o3TkHrI {
+        font-size: 47px;
+        color: #fff;
+        margin: 0;
+        font-weight: 700;
+        z-index: 4;
+        position: relative;
+        font-family: 'Merriweather Sans', sans-serif!important;
+        text-shadow: 0 1px 8px rgba(0,0,0,.2);
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._1sXeg7Um0JOssDxy41fhAy {
+        font-weight: 500;
+        color: #fff;
+        margin-top: 15px;
+        margin-bottom: 60px;
+        z-index: 4;
+        position: relative;
+        text-shadow: 0 1px 8px rgba(0,0,0,.4);
+        font-size: 21px;
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._1d-keXx9N4mVCe6EIDEXyq {
+        width: 100%;
+        margin: 0 auto;
+        z-index: 4;
+        position: relative;
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u {
+        margin-top: 24px;
+        margin-bottom: 10px;
+        position: relative;
+        box-shadow: none;
+        border: none;
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u:hover {
+        border-color: #646464;
+        box-shadow: none;
+    }
+
+    ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u .yYlfMhkjKjrQ0BerOkMTa {
+        border-radius: 4px;
+        color: #646464;
+        font-size: 15px;
+        height: 100%;
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u .yYlfMhkjKjrQ0BerOkMTa:hover {
+        color: #242424;
+    }
+    ._2ykZVaMUWqV5_bRuNpJj5p {
+        position: relative;
+        height: 100%;
+    }
+    ._2ykZVaMUWqV5_bRuNpJj5p ._25bTNxnaCgmCkB4EMGBxla {
+        height: 100%;
+        width: 168px;
+        border-radius: 4px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    ._2ykZVaMUWqV5_bRuNpJj5p ._25bTNxnaCgmCkB4EMGBxla:hover {
+        cursor: pointer;
+        color: #242424;
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u ._2fUFYWAA7dnCEH9-BUvrfq span {
+        position: absolute;
+        top: 16px;
+        pointer-events: none;
+        left: 10px;
+        z-index: 4;
+        font-size: 22px;
+        color: #757575;
+    }
+    ._2ykZVaMUWqV5_bRuNpJj5p ._25bTNxnaCgmCkB4EMGBxla:hover .fa-location-arrow{
+        color:#242424!important;
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u ._2qh4NEDZ9KjZW98gxOQxGC {
+        width: 70%;
+        letter-spacing:1.5px;
+        font-family: 'Merriweather Sans', sans-serif!important;
+        font-weight:500;
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._3I1Elaoo7Dal5gYj0z5J8u ._37R_iCtaJwPiOqFR1umRkV span {
+        position: absolute;
+        top: 15px;
+        pointer-events: none;
+        right: 10px;
+        font-size: 10px;
+        z-index: 4;
+        font-size: 26px;
+    }
+    /******************************RIGHT SEARCH**********************************/
+    @media screen and (min-width: 768px){
+        ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 {
+            float: left;
+            width: 410px;
+            height: auto;
+            margin-left: 20px;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 ._3vV_AN6orIKTUzsacDDaFZ {
+            display: none;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 ._12flgAAstjcdXCsD_K1PvI {
+            box-shadow: none;
+            border: 0;
+        }
+
+    }
+    @media (max-width:768px){
+
+        ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 input{
+            padding-left:36px!important;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 ._3jCvI3pQUt9W9G6UZOs2lw {
+            font-size: 16px;
+        }
+    }
+    @media screen and (max-width: 768px){
+        ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 ._12flgAAstjcdXCsD_K1PvI {
+            height: 48px;
+            box-shadow: none;
+            border: none!important;
+
+        }
+
+        ._2hAL38KLzOgmEOriSGY3QT {
+            width: 258px;
+        }
+        ._1Iq3UDJdQ_staPs1NObXPt {
+            padding: 0 16px 0 0!important;
+        }
+        ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 ._2HLbXPghWymhoRQwmL97pe {
+            display: none!important;
+        }
+        ._3vV_AN6orIKTUzsacDDaFZ .search_icon{
+            position: absolute;
+            font-size:18px;
+            z-index: 4;
+            top: 55%;
+            left: 12px;
+            transform: translateY(-50%);
+            color: #757575;
+        }
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 {
+        height: 48px;
+        transition: all .2s ease-in;
+        position: relative;
+        margin-top: 24px;
+        z-index:9;
+    }
+
+
+    ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 ._12flgAAstjcdXCsD_K1PvI {
+        width: 100%;
+        float: none;
+        height: 54px;
+        border-radius: 4px;
+        background-color: #fff;
+        border: 1px solid #dedede;
+        border-bottom:none;
+    }
+    ._1nWdgpvLgQlilehk2f13Ip {
+        position: relative;
+    }
+
+    ._188u3GtaUtRL1HqZGj9sRJ {
+        display: inline-block;
+        float: left;
+    }
+    ._1nWdgpvLgQlilehk2f13Ip {
+        position: relative;
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 ._3jCvI3pQUt9W9G6UZOs2lw {
+        margin-top: 0;
+        -webkit-appearance: none;
+        font-size: 14px;
+    }
+
+    ._2hAL38KLzOgmEOriSGY3QT {
+        height: 42px;
+        width: 320px;
+        border-radius: 2px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        position: relative;
+    }
+    ._1Iq3UDJdQ_staPs1NObXPt {
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        outline: 0;
+        font-size: 12px;
+        color: #000;
+        margin-top: 5px;
+        width: 100%!important;
+        border: none!important;
+        padding: 12px 16px 0 0!important;
+        border-radius: 4px!important;
+    }
+    ._2hAL38KLzOgmEOriSGY3QT {
+        height: 42px;
+        width: 320px;
+        border-radius: 2px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        position: relative;
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 input {
+        outline: 0;
+        font-size: 16px;
+        padding-left: 14px;
+        border-radius: 4px;
+        height: 100%;
+        box-sizing: border-box;
+        width: 100%;
+        border: none;
+    }
+
+    input[type=search] {
+        -webkit-appearance: textfield;
+        box-sizing: content-box;
+    }
+    ._2RyUw4qK3q5GZmpjwMkcje {
+        font-size: 11px;
+        color: #202020;
+        border: 0;
+        outline: 0;
+        width: 240px;
+        margin-left: 10px;
+        transition: all .2s ease-in-out;
+        z-index: 2;
+    }
+    ._2bZyIA0VQDQOHQMTAdiAr0 {
+        margin: 0!important;
+    }
+    ._2RyUw4qK3q5GZmpjwMkcje {
+        font-size: 11px;
+        color: #202020;
+        border: 0;
+        outline: 0;
+        width: 240px;
+        margin-left: 10px;
+        transition: all .2s ease-in-out;
+        z-index: 2;
+    }
+    ._18OSX9Y4Kx8G-K3l-pLCgv {
+        height: calc(100% - 68px);
+    }
+    ._3fmpyDZmwgiERVmBiqJI2y ._1Vw-BPTWNLKPGECJMs2mu8 ._2HLbXPghWymhoRQwmL97pe {
+        margin: 0;
+        text-align: left;
+        margin-top: 10px;
+        font-size: 13px;
+        padding-left:5px;
+        color: #fff;
+        z-index: 4;
+        position: absolute;
+        top: 54px;
+    }
+
+
+
+    /*****************City dropdown******************/
+    section ul{
+        list-style: none;
+    }
+    ._2ykZVaMUWqV5_bRuNpJj5p ._1p1W1izIPf3HPQYgWKrXzi {
+        position: absolute;
+        top: calc(100% - 3px);
+        width: 99%;
+        left: 0;
+        padding: 0;
+        margin: 0;
+        height: 204px;
+        border-bottom: 1px solid #c4c4c4;
+        border-top: 0;
+        overflow-y: scroll;
+        background-color: #fff;
+        border-radius: 4px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        z-index:10;
+    }
+    ._2ykZVaMUWqV5_bRuNpJj5p ._1p1W1izIPf3HPQYgWKrXzi li {
+        height: 44px;
+        line-height: 44px;
+        width: 100%;
+        border: 1px solid #c4c4c4;
+        border-bottom: none;
+        background-color: #fff;
+    }
+    ._2ykZVaMUWqV5_bRuNpJj5p ._1p1W1izIPf3HPQYgWKrXzi li:hover {
+        cursor: pointer;
+        background-color: #222;
+        color: #fff;
+        border-color: #222;
+    }
+    /*******************second search drop down********************/
+
+    ._1Fc9CHjP7ix9zvXgoHLhOy {
+        position: absolute;
+        top: 68px;
+        z-index: 10;
+        width: 300px;
+        max-height: 218px;
+        overflow-y: auto;
+        left: 0;
+    }
+
+    ._2YFHV0d6INj_I_v5jSxdoI {
+
+        border-right:none;
+        border-top: none;
+        margin: 0;
+        list-style-type: none;
+        padding: 0;
+        top: 53px!important;
+        width: 100%!important;
+    }
+    @media screen and (max-width: 768px){
+
+        ._2YFHV0d6INj_I_v5jSxdoI {
+            max-height: 87px!important;
+            overflow-y: auto;
+            overflow-x:hidden;
+
+        }   
+        ._1Y4fusHjLmbUO8qKerbIbn{
+            margin-left:1px;        
+        }
+    }
+    ._1Y4fusHjLmbUO8qKerbIbn:hover {
+        background-color: #000;
+        color: #fff;
+        cursor: pointer;
+    }
+    ._1Y4fusHjLmbUO8qKerbIbn {
+        border-top: 1px solid #c4c4c4;
+        position: relative;
+        height: 44px;
+        font-size: 15px;
+        color: #555;
+        display: table;
+        text-align: left;
+        width: 100%;
+        background-color: #fff;
+    }
+    ._1Fc9CHjP7ix9zvXgoHLhOy li ._1NibO0nZPVbXSu_eOFkSAk {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    ._1Fc9CHjP7ix9zvXgoHLhOy li ._1NibO0nZPVbXSu_eOFkSAk {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    ._1-ZuYSE5ugCHG5vD29RlOq {
+        height: 44px;
+        width: 100%;
+        display: table;
+    }
+    ._1-ZuYSE5ugCHG5vD29RlOq .yYS2fiJ4WPXN7erEQu0nk {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    ._1Y4fusHjLmbUO8qKerbIbn ._1wuf_RfgsK431M_TzQ1RQm {
+        position: relative;
+        top: -16px;
+    }
+
+    .HiAwldacoqPza4ANMTohE span {
+        cursor: pointer;
+    }
+
+    ._1Y4fusHjLmbUO8qKerbIbn ._2t4u8Mdp2tKq7cJx0RjGL0:before {
+        color: #030404;
+        font-size: 20px;
+        position: absolute;
+        top: 14px;
+        left: 18px;
+    }
+
+    .HiAwldacoqPza4ANMTohE span:before {
+        color: #fff!important;
+    }
+    ._1Y4fusHjLmbUO8qKerbIbn ._1xt3ldzRB6tmh5GhIzLCNK {
+        margin-left: 60px;
+    }
+    .donate-now {
+        list-style-type:none;
+        margin:25px 0 0 0;
+        padding:0;
+    }
+
+    .donate-now .donate-now-start {
+        margin:0 5px 0 0;
+        width:100px;
+        height:68px;
+        position:relative;
+    }
+
+    .donate-now label, .donate-now input {
+        display:block;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+    }
+
+    .donate-now input[type="radio"] {
+        opacity:0.011;
+        z-index:100;
+    }
+
+    .donate-now input[type="radio"]:checked + label {
+        background:#fff;
+        border:2px solid #666;
+        color:#000;
+    }
+
+
+    .donate-now label {
+        padding:5px;
+        border:1px solid #ddd;
+        color:#aaa;
+        cursor:pointer;
+        border-radius:4px;
+        z-index:90;
+    }
+
+    .donate-now label:hover {
+        background:#eee;
+    }
+    .donate-now label .p-one{
+        font-size:12px;
+        font-weight:400;
+        letter-spacing:1px;
+    }
+    .donate-now label .p-two{
+        font-size:22px;
+        letter-spacing:1px;
+    }
+
+
+
+
+
+
+
+
+    .donate-now-two {
+        list-style-type:none;
+        margin:25px 0 0 0;
+        padding:0;
+    }
+
+    .donate-now-two .donate-now-start-two {
+        margin:0 5px 0 0;
+        width:100px;
+        height:48px;
+        position:relative;
+    }
+
+    .donate-now-two label, .donate-now-two input {
+        display:block;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+    }
+
+    .donate-now-two input[type="radio"] {
+        opacity:0.011;
+        z-index:100;
+    }
+
+    .donate-now-two input[type="radio"]:checked + label {
+        background:#fff;
+        border:2px solid #666;
+        color:#000;
+    }
+
+
+    .donate-now-two label {
+        padding:5px;
+        padding-top:6px;
+        border:1px solid #ddd;
+        color:#aaa;
+        cursor:pointer;
+        border-radius:4px;
+        z-index:90;
+    }
+
+    .donate-now-two label:hover {
+        background:#eee;
+    }
+    .donate-now-two label .p-one{
+        font-size:16px;
+        font-weight:400;
+        letter-spacing:1px;
+    }
+</style>
+<script>
+    function autoComplet()
+    {
+        alert(999);
+    }
+    $(document).ready(function () {
+        $('div[onload]').trigger('onload');
+    });
+</script>
+<main>
+    <section class="hero-sec-class _3fmpyDZmwgiERVmBiqJI2y _5i54RgeUqKBg-1WgZgW2Q" style="background-blend-mode: multiply;">
+        <img src="uploads/one.jpg" class="hero-image-slider"/>
+                   <h1 class="SwKXaiUF5sVFf7o3TkHrI">Your Online Skill Store</h1>
+            <h2 class="_1sXeg7Um0JOssDxy41fhAy">Get instant access to reliable and affordable services & products</h2>
+            <div class="_1d-keXx9N4mVCe6EIDEXyq clearfix">
+                <div class="_3I1Elaoo7Dal5gYj0z5J8u">
+                    <div class="yYlfMhkjKjrQ0BerOkMTa">
+                        <div class="_2ykZVaMUWqV5_bRuNpJj5p">
+                            <div class="_25bTNxnaCgmCkB4EMGBxla" id="myelement">
+                                <span class="_2fUFYWAA7dnCEH9-BUvrfq">
+                                        <!--<span id="prevIcon" class="undefined" data-icon=""></span>-->
+                                    <span><i class="fa fa-location-arrow" style="font-size:18px;"></i></span>
+                                </span>
+                                <span class="_2qh4NEDZ9KjZW98gxOQxGC">Lahore</span>
+                                <span class="_37R_iCtaJwPiOqFR1umRkV">
+                                    <span><i class="fa fa-sort-desc" style="font-size:20px;"></i></span>
+                                </span>
+                            </div>
+                            <ul id="another-element"  class="_1p1W1izIPf3HPQYgWKrXzi" style="display:none">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="_1Vw-BPTWNLKPGECJMs2mu8">
+                    <span class="_3vV_AN6orIKTUzsacDDaFZ">
+                        <span class="d-xl-none d-lg-none d-md-block d-block">
+                            <span class="search_icon"><i class="fa fa-search"></i></span>
+                        </span>
+                    </span>
+                    <div class="_1nWdgpvLgQlilehk2f13Ip _188u3GtaUtRL1HqZGj9sRJ _12flgAAstjcdXCsD_K1PvI">
+                        <div class="">
+                            <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
+                                <input type="search" placeholder="Search for a service" onkeyup="myFunction()" id="search" class="_2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0" value="">
+                            </div>
+                        </div>
+
+                        <div id="result_output" class="table mytable_search_results_table mx-auto mb-0 mb-xl-0 mb-lg-0 mb-md-0 mb-sm-0"></div>
+                        <div id="result" class="_18OSX9Y4Kx8G-K3l-pLCgv">
+                            <ul class="_1Fc9CHjP7ix9zvXgoHLhOy _2YFHV0d6INj_I_v5jSxdoI">
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="_2HLbXPghWymhoRQwmL97pe">Eg. Electrician at Home, Plumber, Refrigerator Repair</p>
+                </div>
+            </div> 
+                    </section>
+    <div class="four_div"></div>
+    <div class="btn btn-primary btn-next-cat" onclick="elec_cat()">
+        <div class="continue-next-cat-quantity pull-left" id="quantity_next_cat"></div>
+        <div class="continue-next-cat-price pull-left" id="price_next_cat"></div>
+        <div class="continue-next-cat-button pull-left">Continue &nbsp;&nbsp;<i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
+    </div>
+
+
+</main>
+
+
+
+
+
+
+<!-- The Modal -->
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "cities",
+            //data: {about_service:about_service,serviceID:serviceID},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                //alert(data);
+                var obj = JSON.parse(data);
+
+                $("#another-element").html();
+                for (var i = 0; i < obj.length; i++) {
+                    if(document.getElementById('another-element') !== null){
+                      document.getElementById('another-element').innerHTML += ' <li class="" value="obj[i].id">' + obj[i].city_name + '</li>';  
+                    }
+                    
+                }
+            }
+        });
+
+        $('#myelement').click(function (e) {
+            $('#another-element').stop(true).slideToggle();
+        });
+        $(document).click(function (e) {
+            if (!$(e.target).closest('#myelement, #another-element').length) {
+                $('#another-element').stop(true).slideUp();
+            }
+        });
+    });
+</script>
+<script>
+
+    $('#carouselExampleProduct').on('slide.bs.carousel', function (e) {
+
+
+        var $e = $(e.relatedTarget);
+        var idx = $e.index();
+        var itemsPerSlide = 3;
+        var totalItems = $('#carouselExampleProduct .sliderProduct').length;
+
+        if (idx >= totalItems - (itemsPerSlide - 1)) {
+            var it = itemsPerSlide - (totalItems - idx);
+            for (var i = 0; i < it; i++) {
+                // append slides to end
+                if (e.direction == "left") {
+                    $('#carouselExampleProduct .sliderProduct').eq(i).appendTo('.carous-inner');
+                } else {
+                    $('#carouselExampleProduct .sliderProduct').eq(0).appendTo('.carous-inner');
+                }
+            }
+        }
+    });
+</script> 
+
+<script>
+    var service_id = "";
+    var delievery_status_instant = "";
+    var delievery_status_schdule = "";
+    var addressMap = "";
+    var sub_id = "";
+    var notes = "";
+    var job = [];
+    var current_location = "";
+    function search()
+    {
+        var search = $("#search").val();
+        //alert(search);
+        //$( ".four_div" ).html('<div class="modal" id="myModal"><div class="modal-dialog"><div class="modal-content"><div class="modal-header" ><h4 class="modal-title" style="margin-left:200px;">'+search+'</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body">Modal body..</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div>');
+    }
+    function myFunction()
+    {
+        var search = $("#search").val();
+        //alert(search);
+        $.ajax({
+            type: "POST",
+            url: "search",
+            data: {search: search},
+            cache: false,
+            success: function (data) {
+                //alert(data);
+                var obj = JSON.parse(data);
+                $("#result").html('<div id="autoCompleteSuggest" style=""></div>');
+                for (var i = 0; i < obj.length; i++) {
+                    document.getElementById('autoCompleteSuggest').innerHTML += '<a style="text-decoration:none;z-index:9!important;"  href=""  onClick="event.preventDefault(); get(\'' + obj[i].id + '\')"><li style="text-decoration:none;z-index:9!important;" class="_1Y4fusHjLmbUO8qKerbIbn HiAwldacoqPza4ANMTohE" data-index="0"><div class="_1NibO0nZPVbXSu_eOFkSAk"><div data-position="1" data-category="fitness_trainer_at_home" class="_1-ZuYSE5ugCHG5vD29RlOq"><div class="yYS2fiJ4WPXN7erEQu0nk"><span class="_1wuf_RfgsK431M_TzQ1RQm"><span class="_2t4u8Mdp2tKq7cJx0RjGL0" data-icon="A"></span></span><span id="' + obj[i].id + '" class="_1xt3ldzRB6tmh5GhIzLCNK">' + obj[i].service_name + '</span></div></div></div></li></a>';
+                    // document.getElementById('autoCompleteSuggest').innerHTML+='<div class="search_result_output" ><a  href="" id="'+obj[i].id+'" onClick="event.preventDefault(); get(\''+obj[i].id+'\')">'+ obj[i].service_name +'</a></div>';
+                    //$(".table").html('<table border="1" style="margin-top:7px;margin-left:-710px;background-color:white;border-radius:5px !important;"><tr><td style="width:400px;height:26px;"><a href="" id="'+obj[i].id+'" onClick="event.preventDefault(); get(\''+obj[i].id+'\')">'+ obj[i].service_name +'</a></td></tr></table>');
+                }
+            }
+        });
+    }
+</script>
+<script>
+    function view_promotion(serviceID)
+    {
+        promotion_id = document.getElementById('promotion_id').value;
+        service_id = serviceID;
+        if(promotion_id && service_id){
+        var about_service = 'first_promotion_modal';
+        $.ajax({
+            type: "POST",
+            url: "promotion_details",
+            data: {about_service: about_service, promotionID: promotion_id, serviceID: serviceID},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $(".four_div").html(data);
+                $('#mModal').modal();
+            }
+        });
+        }
+    }
+    function ChangeSubServiceValue(value){
+        document.getElementById('sub_service_id').value = value;
+    }
+    function NextStepPromotion()
+    {
+        var sub_service_id = $("#sub_service_id").val();
+        var about_service = 'promtion_pre_defined_jobs';
+        
+        $(".textbutton5").html('Please Wait...');
+        $(".textbutton5").attr("disabled", true);
+        $.ajax({
+            type: "POST",
+            url: "about_service",
+            data: {about_service: about_service, service_id: sub_service_id},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+            }
+        });
+    }
+    function promotion_cat()
+    {
+        var predefined_job_id = $("#predefined_job_id").val();
+        var quantity = $("#number").val();
+        if(quantity == 0){
+            alert('Please select at least 1 quantity');
+            return;
+        }
+        //return job_ids.join(",");
+        //alert(predefined_jobs); return;
+        if (predefined_job_id == undefined)
+        {
+            $("#msg").html('<div class="alert alert-danger" role="alert">Predefined Jobs Fields Required!</div>');
+        } else
+        {
+            var map = 'map';
+            $(".textbutton1").html('Please Wait...');
+            $(".textbutton1").attr("disabled", true);
+            $.ajax({
+                type: "POST",
+                url: "service_required",
+                data: {map: map, predefined_jobs: predefined_job_id, qty: quantity},
+                cache: false,
+                data_type: "text",
+                success: function (data) {
+                    $("#modal_id").html(data);
+                    $('#mModal').modal();
+                    getLocation();
+                    initialize();
+                }
+            });
+        }
+    }
+</script>
+<script>
+    function get(serviceID)
+    {
+        //var service_name=$("#service_name");
+        //alert(serviceID);
+        document.getElementById('search').value = document.getElementById(serviceID).innerHTML;
+        service_id = serviceID;
+        var about_service = 'first_service_modal';
+        $.ajax({
+            type: "POST",
+            url: "search_detail",
+            data: {about_service: about_service, serviceID: serviceID},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $(".four_div").html(data);
+                $('#mModal').modal();
+            }
+        });
+
+
+    }
+
+    function view_get(serviceID)
+    { //alert(9999);
+        service_id = serviceID;
+        var about_service = 'first_service_modal';
+        $.ajax({
+            type: "POST",
+            url: "search_detail",
+            data: {about_service: about_service, serviceID: serviceID},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $(".four_div").html(data);
+                $('#mModal').modal();
+            }
+        });
+    }
+    
+    function change()
+    {
+
+        var service_id = $("#service_id").val();
+        var about_service = 'about_service';
+        $(".textbutton5").html('Please Wait...');
+        $(".textbutton5").attr("disabled", true);
+        $.ajax({
+            type: "POST",
+            url: "about_service",
+            data: {about_service: about_service, service_id: service_id},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+
+            }
+        });
+    }
+    function showDatetime()
+    {
+        var now = new Date();
+        var utcString = now.toISOString().substring(0, 19);
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var day = now.getDate();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        var localDatetime = year + "-" +
+                (month < 10 ? "0" + month.toString() : month) + "-" +
+                (day < 10 ? "0" + day.toString() : day) + "T" +
+                (hour < 10 ? "0" + hour.toString() : hour) + ":" +
+                (minute < 10 ? "0" + minute.toString() : minute) +
+                utcString.substring(16, 19);
+        var datetimeField = document.getElementById("div_time");
+        datetimeField.value = localDatetime;
+    }
+    function change_modal()
+    {
+
+        sub_id = $("input[name='optradio']:checked").val();
+        if (sub_id !== null && sub_id !== undefined && sub_id !== '')
+        {
+            $(".textbutton").html('Please Wait...');
+            $(".textbutton").attr("disabled", true);
+            var service_required = 'service_required';
+            $.ajax({
+                type: "POST",
+                url: "service_required",
+                data: {service_required: service_required, sub_id: sub_id},
+                cache: false,
+                data_type: "text",
+                success: function (data) {
+                    $("#modal_id").html(data);
+                    $('#mModal').modal();
+                }
+            });
+        } else
+        {
+            $("#msg").html('<div class="alert alert-danger" role="alert">Sub CategoryFields Required!</div>');
+        }
+
+    }
+</script>
+<script>
+    function elec_cat()
+    {
+        $('.btn-next-cat').hide();
+        notes = $("#notes").val();
+        //predefined_jobs = $("input[name='predefined_jobs']:checked"). val();;
+        //predefined_jobs = $(".days_check_boxes").prop('checked', $(this).is(":checked"));
+        predefined_jobs = $(".pre-def-jobs-boxes >div > input:checkbox:checked").get();
+        var job_ids = $.map(predefined_jobs, function (element) {
+            return $(element).attr("value");
+        });
+        var qty_sep = job_ids.join(",");
+        //var qty_ids= qty_sep.split(",");
+        //alert(qty_ids);
+
+        var qty_idS = JSON.parse("[" + qty_sep + "]");
+        //alert(qty_idS);
+        var qty_values = [];
+        for (var i = 0; i < qty_idS.length; i++) {
+            qty_values.push(document.getElementById('number_' + qty_idS[i]).value);
+        }
+        
+        if(qty_values.length == 0 || qty_values.length < 0){
+            alert("Please select at least 1 quantity.");
+            return;
+        }
+
+        //return job_ids.join(",");
+        //alert(predefined_jobs); return;
+        if (predefined_jobs == undefined)
+        {
+            $("#msg").html('<div class="alert alert-danger" role="alert">Predefined Jobs Fields Required!</div>');
+        } else
+        {
+            var map = 'map';
+
+            $(".textbutton1").html('Please Wait...');
+            $(".textbutton1").attr("disabled", true);
+            $.ajax({
+                type: "POST",
+                url: "service_required",
+                data: {map: map, predefined_jobs: job_ids.join(","), qty: qty_values.join(",")},
+                cache: false,
+                data_type: "text",
+                success: function (data) {
+                    $("#modal_id").html(data);
+                    $('#mModal').modal();
+                    getLocation();
+                    initialize();
+                }
+            });
+
+
+        }
+
+
+    }
+    function phoneBooking()
+    {
+        
+        var phoneNumber = $("#phone").val();
+        var phoneBooking = "phoneBooking";
+        var len = phoneNumber.length;
+        if (len == 10)
+        {
+            var countryCode = 92;
+            var phone = countryCode + phoneNumber;
+            $(".textbutton4").html('Please Wait...');
+            $(".textbutton4").attr("disabled", true);
+            $.ajax({
+                type: "POST",
+                url: "phoneBooking",
+                data: {phoneBooking: phoneBooking, phone: phone},
+                cache: false,
+                data_type: "text",
+                success: function (data) {
+                    $("#modal_id").html(data);
+                    $('#mModal').modal();
+                }
+            });
+        } else
+        {
+            alert("Please Enter Phone Number Without 0");
+            return;
+        }
+    }
+    function codeVerificationUserExists()
+    {
+        $(".textbutton6").html('Please Wait...');
+        $(".textbutton6").attr("disabled", true);
+        var code = $("#code").val();
+        ConfirmCode(code, 'cvue');
+    }
+    function codeVerificationUserExistsFinal(token)
+    {
+        var code = '';
+        if (token)
+        {
+            code = "CODE";
+        } else
+        {
+            code = "EDOC";
+        }
+        var id = $("#id").val();
+        var codeVerificationUserExists = "codeVerificationUserExists";
+
+        $.ajax({
+            type: "POST",
+            url: "codeVerificationUserExists",
+            data: {codeVerificationUserExists: codeVerificationUserExists, code: code, id: id},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                if (data == 0)
+                {
+                    alert('Invalid Code');
+                    $("#textbutton6").html('Confirm');
+                } else
+                {
+                    $("#modal_id").html(data);
+                    $('#mModal').modal();
+                }
+            }
+        });
+    }
+    function codeVerificationUserNotExists()
+    {
+        $(".textbutton99").html('Please Wait...');
+        $(".textbutton99").attr("disabled", true);
+        var code = $("#code").val();
+        ConfirmCode(code, 'cvune');
+    }
+    function codeVerificationUserNotExistsFinal(token)
+    {
+        var code = '';
+        if (token)
+        {
+            code = "CODE";
+        } else
+        {
+            code = "EDOC";
+        }
+        var code = $("#code").val();
+        var id = $("#id").val();
+        var codeVerificationUserNotExists = "codeVerificationUserNotExists";
+
+        $.ajax({
+            type: "POST",
+            url: "codeVerificationUserNotExists",
+            data: {codeVerificationUserNotExists: codeVerificationUserNotExists, code: code, id: id},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                if (data == 0)
+                {
+                    alert('Invalid Code');
+                    $("#textbutton99").html('Confirm');
+                } else
+                {
+                    $("#modal_id").html(data);
+                    $('#mModal').modal();
+                }
+
+            }
+        });
+    }
+    function saveProfileUserNotExists()
+    {
+        var username = $("#username").val();
+        var email = $("#email").val();
+        var id = $("#id").val();
+        var saveProfileUserNotExists = "saveProfileUserNotExists";
+        $(".saveProfile").html('Please Wait...');
+        $(".saveProfile").attr("disabled", true);
+        $.ajax({
+            type: "POST",
+            url: "saveProfileUserNotExists",
+            data: {saveProfileUserNotExists: saveProfileUserNotExists, username: username, email: email, id: id},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+            }
+        });
+    }
+    function price_box()
+    {
+        var price_box = 'price_box';
+        $("#textbutton2").html('Please Wait...');
+        document.getElementById("textbutton2").disabled = true;
+        $.ajax({
+            type: "POST",
+            url: "service_required",
+            data: {price_box, price_box},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+            }
+        });
+        service_type_day = $('input[name=optradios]:checked').val();
+    }
+    function loca()
+    {
+        //var qty=$("#number").val();
+        $(".textbutton8").html('Please Wait...');
+        $(".textbutton8").attr("disabled", true);
+        var service_required = "mapShow";
+        var mapShow = 'mapShow';
+        $.ajax({
+            type: "POST",
+            url: "mapShow",
+            data: {mapShow: mapShow},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+                getLocation();
+                initialize();
+            }
+        });
+
+    }
+    function time_sel()
+    {
+        addressMap = $("#addressMap").val();
+        var lat = $("#lat").val();
+        var lng = $("#lng").val();
+        current_location = lat + "," + lng;
+        if (addressMap !== "" && lat !== "" && lng !== "")
+        {
+            var time_selct = 'time_selct';
+
+            $(".textbutton3").html('Please Wait...');
+            $(".textbutton3").attr("disabled", true);
+            $.ajax({
+                type: "POST",
+                url: "time_selct",
+                data: {time_selct: time_selct, addressMap: addressMap, lat: lat, lng: lng, current_location: current_location},
+                cache: false,
+                data_type: "text",
+                success: function (data) {
+                    $("#modal_id").html(data);
+                    $('#mModal').modal();
+                }
+            });
+        } else
+        {
+            $("#msg").html('<div class="alert alert-danger" role="alert">Please Give Access To Location First!</div>');
+        }
+
+    }
+</script>
+<script>
+    function signup()
+    {
+        var signup = 'signup';
+        $.ajax({
+            type: "POST",
+            url: "signup",
+            data: {signup: signup},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+                //alert(data)
+            }
+        });
+    }
+    function do_signup()
+    {
+        //alert(999);
+        var do_signup = 'do_signup';
+        var name = $("#name").val();
+        var usr = $("#usr").val();
+        var pwd = $("#pwd").val();
+        var phone = $("#phone").val();
+        $.ajax({
+            type: "POST",
+            url: "do_signup",
+            data: {name: name, usr: usr, pwd: pwd, do_signup: do_signup, phone: phone},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+            }
+        });
+
+    }
+    function forget_password()
+    {
+        var forget_password = 'forget_password';
+        $.ajax({
+            type: "POST",
+            url: "signup",
+            data: {forget_password: forget_password},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+                //alert(data)
+            }
+        });
+    }
+    function get_email()
+    {
+        var get_email = 'get_email';
+        var phone = $("#phone").val();
+        $.ajax({
+            type: "POST",
+            url: "get_email",
+            data: {phone: phone, get_email: get_email},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+            }
+        });
+    }
+    function verify_code()
+    {
+        $(".verifyCode").html('Please Wait...');
+        $(".verifyCode").attr("disabled", true);
+        var code = $("#code").val();
+        var verify_code = 'verify_code';
+        $.ajax({
+            type: "POST",
+            url: "verify_code",
+            data: {code: code, verify_code: verify_code},
+            data_type: "text",
+            cache: false,
+            success: function (data) {
+                if (data == 0)
+                {
+                    alert('Invalid Code');
+                    $(".verifyCode").html('Confirm');
+                } else
+                {
+                    $("#modal_id").html(data);
+                    $('#mModal').modal();
+                }
+            }
+        });
+    }
+    function reset_pass()
+    {
+        var reset_pass = 'reset_pass';
+        var phone = $("#phone").val();
+        var password = $("#password").val();
+        var confirm_password = $("#confirm_password").val();
+        $.ajax({
+            type: "POST",
+            url: "reset_pass",
+            data: {reset_pass: reset_pass, phone: phone, password: password, confirm_password: confirm_password},
+            data_type: "text",
+            cache: false,
+            success: function (data) {
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+                //alert(data);
+            }
+        });
+
+    }
+</script>
+<script>
+    function professional()
+    {
+        var order = "order";
+        var bookingDay = $("input[name='optradio']:checked").val();
+        var bookingTiming = $("input[name='timing']:checked").val();
+        if (bookingDay == undefined)
+        {
+            $("#msg").html('<div class="alert alert-danger" role="alert">Date And Time Fields Required!</div>');
+            return;
+        } else
+        {
+            $(".btntext").html('Please Wait...');
+            $(".btntext").attr("disabled", true);
+            var order = 'order';
+            $.ajax({
+                type: "POST",
+                url: "order",
+                data: {order: order, bookingDay: bookingDay, bookingTiming: bookingTiming},
+                cache: false,
+                data_type: "text",
+                success: function (data) {
+                    $("#modal_id").html(data);
+                    $('#mModal').modal();
+                }
+            });
+        }
+
+    }
+    /*function order()
+     {  alert(addressMap);
+     var order = 'order';
+     $.ajax({
+     type: "POST",
+     url: "order",
+     data: {order:order,delievery_status:delievery_status,service_id:service_id,sub_id:sub_id,addressMap:addressMap,current_location:current_location},
+     cache: false,
+     data_type: "text",
+     success: function(data){
+     $("#modal_id").html(data);
+     $('#mModal').modal();
+     }
+     });
+     }*/
+    function can_login()
+    {
+        var can_login = 'can_login';
+        var email = $("#email").val();
+        var password = $("#password").val();
+        //alert(email);
+        $.ajax({
+            type: "POST",
+            url: "can_login",
+            data: {can_login: can_login, email: email, password: password},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                //alert(data);
+                $("#modal_id").html(data);
+                $('#mModal').modal();
+                getLocation();
+                initialize();
+            }
+        });
+    }
+    function other_job()
+    {
+        var x = document.getElementById("other_job");
+        if (x.style.display === "none")
+        {
+            x.style.display = "block";
+        } else
+        {
+            x.style.display = "none";
+        }
+    }
+</script>
+
+
+<script>
+    function show_map()
+    {
+        getLocation();
+        initialize();
+        $("#map").show();
+    }
+    function show()
+    {
+        $("#div_time").show();
+    }
+    function hide()
+    {
+        $("#div_time").hide();
+    }
+    function increaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('number').value = value;
+    }
+
+    function decreaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value < 1 ? value = 1 : '';
+        value--;
+        document.getElementById('number').value = value;
+
+    }
+    function booking_complete()
+    {
+        $("#timeSelectOrderBtn").html('Please Wait...');
+        $("#timeSelectOrderBtn").attr("disabled", true);
+        var booking_complete = 'booking_complete';
+        var bookingDay = $("input[name='optradio']:checked").val();
+        var bookingTiming = $("input[name='timing']:checked").val();
+        if (bookingDay == undefined || bookingTiming == undefined)
+        {
+            $("#msg").html('<div class="alert alert-danger" role="alert">Date And Time Fields Required!</div>');
+            $("#timeSelectOrderBtn").html('Order');
+            $("#timeSelectOrderBtn").attr("disabled", false);
+            return;
+        } else
+        {
+            $.ajax({
+                type: "POST",
+                url: "booking_complete",
+                data: {booking_complete: booking_complete, bookingDay: bookingDay, bookingTiming: bookingTiming},
+                cache: false,
+                data_type: "text",
+                success: function (data) {
+                    //alert(data);
+                    $("#modal_id").html(data);
+                    $('#mModal').modal();
+                }
+            });
+        }
+    }
+    function qty()
+    {
+        var qty = $("#qty").val();
+        var unitPrice = $("#unitPrice").val();
+        alert(qty + unitPrice);
+        return;
+        var priceUpdate = "priceUpdate";
+        $.ajax({
+            type: "POST",
+            url: "priceUpdate",
+            data: {priceUpdate: priceUpdate, qty: qty, unitPrice: unitPrice},
+            cache: false,
+            dataType: "text",
+            success: function (data) {
+                alert(data);
+            }
+        });
+    }
+    function dateRadio()
+    {
+        var currdate = $("#a1").val();
+        var a14 = $("#a14").val();
+        a14 = a14.substr(0, 1);
+        var a15 = $("#a15").val();
+        a15 = a15.substr(0, 2);
+        var a16 = $("#a16").val();
+        a16 = a16.substr(0, 2);
+        var a17 = $("#a17").val();
+        a17 = a17.substr(0, 2);
+        var a18 = $("#a18").val();
+        a18 = a18.substr(0, 2);
+        var a19 = $("#a19").val();
+        a19 = a19.substr(0, 2);
+        var a20 = $("#a20").val();
+        a20 = a20.substr(0, 2);
+        var a21 = $("#a21").val();
+        a21 = a21.substr(0, 2);
+        var currhour = $("#currhour").val();
+        var bookingDay = $("input[name='optradio']:checked").val();
+        var bookingTiming = $("input[name='timing']:checked").val();
+        if (bookingDay == currdate)
+        {
+            if (Number(currhour) >= a14)
+            {
+                $(".firstdiv").hide();
+            }
+            if (Number(currhour) >= a15)
+            {
+                $(".seconddiv").hide();
+            }
+            if (Number(currhour) >= a16)
+            {
+                $(".thirddiv").hide();
+            }
+            if (Number(currhour) >= a17)
+            {
+                $(".fourthdiv").hide();
+            }
+            if (Number(currhour) >= a18)
+            {
+                $(".fifthdiv").hide();
+            }
+            if (Number(currhour) >= a19)
+            {
+                $(".sixthdiv").hide();
+            }
+            if (Number(currhour) >= a20)
+            {
+                $(".seventhdiv").hide();
+            }
+            if (Number(currhour) >= a21)
+            {
+                $(".eightdiv").hide();
+                $(".textfield").html('<p class="text-danger">There Is No Time Slot Available</p>');
+            }
+
+
+        }
+
+
+
+    }
+    function checkForSlots(date)
+    {
+        $("#timingDiv").html('<img src="/assets/images/loadingCircleImage.gif" style="display: block;margin-left: auto;margin-right: auto;" height="50" width="50" draggable="false"/>');
+        $.ajax({
+            type: "POST",
+            url: "checkForSlots",
+            data: {checkForSlots: 'checkForSlots', date: date},
+            cache: false,
+            data_type: "text",
+            success: function (data) {
+                $("#timingDiv").html(data);
+            }
+        });
+    }
+    function dateRadioSecond()
+    {
+        $(".firstdiv").show();
+        $(".seconddiv").show();
+        $(".thirddiv").show();
+        $(".fourthdiv").show();
+        $(".fifthdiv").show();
+        $(".sixthdiv").show();
+        $(".seventhdiv").show();
+        $(".eightdiv").show();
+        $(".textfield").hide();
+    }
+    function dateRadiothird()
+    {
+        $(".firstdiv").show();
+        $(".seconddiv").show();
+        $(".thirddiv").show();
+        $(".fourthdiv").show();
+        $(".fifthdiv").show();
+        $(".sixthdiv").show();
+        $(".seventhdiv").show();
+        $(".eightdiv").show();
+        $(".textfield").hide();
+    }
+    function dateRadiofourth()
+    {
+        $(".firstdiv").show();
+        $(".seconddiv").show();
+        $(".thirddiv").show();
+        $(".fourthdiv").show();
+        $(".fifthdiv").show();
+        $(".sixthdiv").show();
+        $(".seventhdiv").show();
+        $(".eightdiv").show();
+        $(".textfield").hide();
+    }
+    function dateRadiofifth()
+    {
+        $(".firstdiv").show();
+        $(".seconddiv").show();
+        $(".thirddiv").show();
+        $(".fourthdiv").show();
+        $(".fifthdiv").show();
+        $(".sixthdiv").show();
+        $(".seventhdiv").show();
+        $(".eightdiv").show();
+        $(".textfield").hide();
+    }
+    function dateRadiosixth()
+    {
+        $(".firstdiv").show();
+        $(".seconddiv").show();
+        $(".thirddiv").show();
+        $(".fourthdiv").show();
+        $(".fifthdiv").show();
+        $(".sixthdiv").show();
+        $(".seventhdiv").show();
+        $(".eightdiv").show();
+        $(".textfield").hide();
+    }
+    function dateRadioSeventh()
+    {
+        $(".firstdiv").show();
+        $(".seconddiv").show();
+        $(".thirddiv").show();
+        $(".fourthdiv").show();
+        $(".fifthdiv").show();
+        $(".sixthdiv").show();
+        $(".seventhdiv").show();
+        $(".eightdiv").show();
+        $(".textfield").hide();
+    }
+    function dateRadioEigth()
+    {
+        $(".firstdiv").show();
+        $(".seconddiv").show();
+        $(".thirddiv").show();
+        $(".fourthdiv").show();
+        $(".fifthdiv").show();
+        $(".sixthdiv").show();
+        $(".seventhdiv").show();
+        $(".eightdiv").show();
+        $(".textfield").hide();
+    }
+    function dateRadioNinth()
+    {
+        $(".firstdiv").show();
+        $(".seconddiv").show();
+        $(".thirddiv").show();
+        $(".fourthdiv").show();
+        $(".fifthdiv").show();
+        $(".sixthdiv").show();
+        $(".seventhdiv").show();
+        $(".eightdiv").show();
+        $(".textfield").hide();
+    }
+</script><script src="common/chatkit.js"></script>
+<script src="common/chat.js"></script>
+<script src="common/operatorManager.js"></script>
+<script src="common/userManager.js"></script>
+
+<div class="chat">
+
+        <button id="talk-to-us" class="btn btn-dark btn-block" data-toggle="collapse" data-target="#login-box">
+        Talk To Us
+    </button>
+        
+
+
+    <div class="card message_area_block">
+        <div class="card-body collapse" id="chat-box">
+            <div style="height:250px;">
+                <ul id="message-list"></ul>
+                <form id="message-form" style="margin-bottom:30px;">
+                    <span id="error_nobody"></span>
+                    <input type="hidden" name="operator_id" id="operator_id" value=""/>
+                    <input type="hidden" name="user_id" id="user_id"/>
+                    <input type='text' id='message-text' class="chat-submit-area">
+                    <input type="submit" class="message-submit-button btn btn-dark" onclick="sendMessage()">
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="card login_area_block">
+        <div class="card-body collapse" id="login-box">
+            <div style="height:250px;">
+                <form  id="login-form-chat">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="number" class="form-control" name="phone" min="0999999999" max="99999999999" id="phone" required>
+                    </div>
+                    <a id="submitUserData"><button  type="submit" class="btn btn-primary">Submit</button></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div><style type="text/css">
+   
+
+    /****09aug****/
+    .heading_sliders{
+        font-size:18px;
+        color:#242424;
+        font-weight:600;
+        margin:0;
+        letter-spacing:-0.5px;
+    }
+    .heading_service{
+        font-size: 47px;
+        color: #fff;
+        margin:0;
+        font-weight: 700;
+        position: relative;
+        font-family: 'Merriweather Sans', sans-serif!important;
+        text-shadow: 0 1px 8px rgba(0,0,0,.2);
+    }
+</style>
+
+<!-- 09aug<div class="container services">
+        <h4>Products</h4>   
+        
+        <div class="container-fluid">
+        <div id="carouselExample" class="carouselPrograms carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner carous-inner row w-100 mx-auto" role="listbox">
+                        <div class="carousel-item slider col-md-4  active">
+                           <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="AC Repair & Service" class="thumb">
+                                          <img class="img-fluid mx-auto d-block" src="assets/images/ACrepairpic.png" alt="ACrepair">
+                                        </a>
+                                        <div class="container-fluid product" style="background:#fff;margin-top:0px;border:1px solid #eee;">
+                                                <table class="table">
+                                                        <tbody>
+                                                                <tr>
+                                                                <td class="text-left product_name">Product Name</td>
+                                                                <td class="text-right product_price">PKR 500/-</td>
+                                                                </tr>
+                                                                <tr class="product_second_td">
+                                                                        <td class="text-left product_star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-empty"></i></td>
+                                                                        <td  class="text-right product_empty_td"></td>
+                                                                </tr>
+
+                                                                
+                                                        </tbody>
+                                                </table>
+                                                <div class="container text-center" style="margin-bottom: 5px;"><button type="button" class="addtocart btn btn-dark">Add To Cart</button></div>
+                                                        
+                                                
+                                        </div>
+                                  </div>
+                                </div>
+                        </div>
+                        <div class="carousel-item slider col-md-4  ">
+                                <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="Home Deep Cleaning" class="thumb">
+                                         <img class="img-fluid mx-auto d-block" src="assets/images/homeddepcleaning.png" alt="homeddepcleaning">
+                                        </a>
+                                        <div class="container-fluid product" style="background:#fff;margin-top:0px;border:1px solid #eee;">
+                                                <table class="table">
+                                                        <tbody>
+                                                                <tr>
+                                                                <td class="text-left product_name">Product Name</td>
+                                                                <td class="text-right product_price">PKR 500/-</td>
+                                                                </tr>
+                                                                <tr class="product_second_td">
+                                                                        <td class="text-left product_star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-empty"></i></td>
+                                                                        <td  class="text-right product_empty_td"></td>
+                                                                </tr>
+
+                                                                
+                                                        </tbody>
+                                                </table>
+                                                <div class="container text-center" style="margin-bottom: 5px;"><button type="button" class="addtocart btn btn-dark">Add To Cart</button></div>
+                                                        
+                                                
+                                        </div>
+                                  </div>
+                                  
+                                </div>
+                        </div>
+                        <div class="carousel-item slider col-md-4 ">
+                           <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="Electrician" class="thumb">
+                                         <img class="img-fluid mx-auto d-block" src="assets/images/electricainpic.png" alt="electricain">
+                                        </a>
+                                        <div class="container-fluid product" style="background:#fff;margin-top:0px;border:1px solid #eee;">
+                                                <table class="table">
+                                                        <tbody>
+                                                                <tr>
+                                                                <td class="text-left product_name">Product Name</td>
+                                                                <td class="text-right product_price">PKR 500/-</td>
+                                                                </tr>
+                                                                <tr class="product_second_td">
+                                                                        <td class="text-left product_star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-empty"></i></td>
+                                                                        <td  class="text-right product_empty_td"></td>
+                                                                </tr>
+
+                                                                
+                                                        </tbody>
+                                                </table>
+                                                <div class="container text-center" style="margin-bottom: 5px;"><button type="button" class="addtocart btn btn-dark">Add To Cart</button></div>
+                                                        
+                                                
+                                        </div>
+                                  </div>
+                                </div>
+                        </div>
+                        <div class="carousel-item slider col-md-4 ">
+                           <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="Plumber" class="thumb">
+                                         <img class="img-fluid mx-auto d-block" src="assets/images/plumberpic.png" alt="plumber">
+                                        </a>
+                                        <div class="container-fluid product" style="background:#fff;margin-top:0px;border:1px solid #eee;">
+                                                <table class="table">
+                                                        <tbody>
+                                                                <tr>
+                                                                <td class="text-left product_name">Product Name</td>
+                                                                <td class="text-right product_price">PKR 500/-</td>
+                                                                </tr>
+                                                                <tr class="product_second_td">
+                                                                        <td class="text-left product_star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-empty"></i></td>
+                                                                        <td  class="text-right product_empty_td"></td>
+                                                                </tr>
+
+                                                                
+                                                        </tbody>
+                                                </table>
+                                                <div class="container text-center" style="margin-bottom: 5px;"><button type="button" class="addtocart btn btn-dark">Add To Cart</button></div>
+                                                        
+                                                
+                                        </div>                          
+                                  </div>
+                                </div>
+                        </div>
+                </div>
+                <a class="carousel-control-prev serviceSlideLeft left_button_recomendedservice" href="#carouselExample" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon left_button_inner_recomendedservice" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next text-faded serviceSlideRight right_button_recomendedservice" href="#carouselExample" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon right_button_inner_recomendedservice" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                </a>
+        </div>
+        
+        </div>
+</div>09aug-->
+
+<div class="container-fluid third_section" style='z-index:999;'>
+            <div class="inner_third_section">
+                <ul class="third_section_unorderlist">
+                    <li><a href="carwash"><img src="assets/images/car.png" style="height:50px;width:40px;" ><br>Car Wash</a></li>
+                    <li><a href="electrician"><img src="assets/images/plug.png" style="height:50px;width:40px;" ><br>Electrician</a></li>
+                    <li><a href="plumber"><img src="assets/images/faucet.png" style="height:50px;width:40px;" ><br>e Plumber</a></li>
+                    <li><a href="ac_service"><img src="assets/images/air-conditioner.png" style="height:50px;width:40px;" ><br>Ac</a></li>
+                    <li><a href="home-cleaning"><img src="assets/images/frying-pan.png" style="height:50px;width:40px;" ><br>Home Cleaning</a></li>
+                    <!--<li><a href="movers_packers"><img src="assets/images/maintenance.png" style="height:50px;width:40px;" ><br>Movers & Packers</a></li>-->
+                    <li><a href="pestcontrol"><img src="assets/images/pest_control.png" style="height:50px;width:40px;" ><br>Pest Control</a></li>
+                    <li><a href="beautician"><img src="assets/images/hairdryer.png" style="height:50px;width:40px;" ><br>Beautician</a></li>
+                </ul>
+            </div>
+
+        </div><div class="container-fluid display_table_services">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><a href="carwash" class="anchor_table_services"><img src="assets/images/car.png" style="height:50px;width:50px;" ><br>Car Wash</td>
+                        <td><a href="electrician" class="anchor_table_services"><img src="assets/images/plug.png" style="height:50px;width:50px;" ><br>Electrician</a></td>
+                        <td><a href="plumber" class="anchor_table_services"><img src="assets/images/faucet.png" style="height:50px;width:50px;" ><br>e Plumber</a></td>
+            </tr>
+        </tbody>
+
+        <tbody>
+            <tr style="border-top:0px;">
+                <td><a href="ac_service" class="anchor_table_services"><img src="assets/images/air-conditioner.png" style="height:50px;width:50px;" ><br>Ac</a></td>
+                <td><a href="home-cleaning" class="anchor_table_services"><img src="assets/images/frying-pan.png" style="height:50px;width:50px;" ><br>Home Cleaning</a></td>
+                <td><a href="movers&packers" class="anchor_table_services"><img src="assets/images/maintenance.png" style="height:50px;width:50px;" ><br>Movers & Packers</a></td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr style="border-top:0px;">
+                <td><a href="beautician" class="anchor_table_services"><img src="assets/images/hairdryer.png" style="height:50px;width:50px;" ><br>Beautician</a></td>
+                <td style="border-right:0px!important;"></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+<div class="container mt-5 ">
+    <div class="row">
+        <div class="col-12 col-md-4 col-sm-4 mx-auto text-center py-2" style="box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0);">
+            <h2 class="heading_service" style="font-size:40px  !important;font-family:sans-serif !important;">SERVICES</h2>
+        </div>
+    </div>
+</div>
+<div class="spe-cor">
+    <div class="container services">
+<!--        <h2 class="heading_sliders px-5">Services</h2>-->
+        <div class="container py-3 px-5">
+            <div class="row">
+                <div id="slider-1" class="carousel carousel-by-item slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="carwash" title="Car Wash" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/ewash.png" alt="Car Wash">
+                                        <h5 class="servicePanelLabel">Car Wash</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="electrician" title="Electrician" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/category_3d171bc0.jpeg" alt="Electrician">
+                                        <h5 class="servicePanelLabel">Electrician</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="plumber" title="Plumber" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/category_3e5fef70.jpeg" alt="Plumber">
+                                        <h5 class="servicePanelLabel">Plumber</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="carpenters" title="Carpenters" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/category_3c3631a0.jpeg" alt="Carpenters">
+                                        <h5 class="servicePanelLabel">Carpenters</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="pestcontrol" title="Pest Control" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/pest-control_Desktop.jpg" alt="Pest Control">
+                                        <h5 class="servicePanelLabel">Pest Control</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="partydecoration" title="Party Decoration" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/Birthday-Party-Planner_Desktop-1.jpg" alt="Party Decoration">
+                                        <h5 class="servicePanelLabel">Party Decoration</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="ac_service" title="AC Technician" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/Ac-Repair_Luminosity_Desktop.jpg" alt="AC Technician">
+                                        <h5 class="servicePanelLabel">AC Technician</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="home-cleaning" title="Home Cleaning" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/home.jpg" alt="Home Cleaning">
+                                        <h5 class="servicePanelLabel">Home Cleaning</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="car_repairing" title="Car Repairing" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/car-repair.jpg" alt="Car Repairing">
+                                        <h5 class="servicePanelLabel">Car Repairing</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="beautician" title="Beautician" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/landscape-1481045420-facial.jpg" alt="Beautician">
+                                        <h5 class="servicePanelLabel">Beautician</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="construction" title="Construction & Interior" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/11111.jpg" alt="Construction & Interior">
+                                        <h5 class="servicePanelLabel">Construction & Interior</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                                <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="Appliance Repairing" title="Appliance Repairing" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/dc-drive-repair.jpg" alt="Appliance Repairing">
+                                        <h5 class="servicePanelLabel">Appliance Repairing</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                          
+                    </div>
+                    <a class="carousel-control-prev productleftcontrol" href="#slider-1" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon productlefticon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next productrightcontrol" href="#slider-1" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon productrighticon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+
+
+<section class="mb-0"style="background:#f4f4f4; padding:50px 0px;"> 
+    <div class="container" style="text-align:center;">
+        <div class="row" style="text-align:center;">
+            <div class="col-12 col-md-12" style="text-align:center;">
+                <h2>Ready To Book Now?</h2>
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <a href="shop" class="col-xl-3 col-lg-4 col-md-5 bookservice_Button" style="color:#fff; text-decoration:none;font-weight:bold;font-size:16px;">Shop</a>
+
+            <a href="services"  class="col-xl-3 col-lg-4 col-md-5 bookservice_Button" style="color:#fff; text-decoration:none;margin-left:5px;font-weight:bold;font-size:16px;">Book Service</a>
+        </div>
+    </div>
+</section>
+<section class="mb-0"style="background:#f4f4f4; padding:50px 0px;"> 
+    <div class="container" style="text-align:center;">
+        <div class="row" style="text-align:center;">
+            <div class="col-12 col-md-6" style="text-align:center;">
+                <img src="assets/images/app__image.png" style="height:500px"/>
+            </div>
+            <div class="col-12 col-md-6" style="text-align:center;">
+                <h1>Download The App </h1>
+                <p>Choose and book from 100+ services and track them on the go with the Ejoyy App</p>
+                <br/>
+                <a href="https://play.google.com/store/apps/details?id=com.thinkgeniux.Ejoyy"><img src="assets/images/android_app_googlplay.png" style="width:250px;height:120px"/></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--07April-->
+<!--09aug<div class="spe-cor">
+    <div class="container services">
+       <h4>Recommended Services</h4>
+       <div class="container py-3 px-5">
+        <div class="row">
+            <div id="slider-2" class="carousel carousel-by-item slide" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <div class="col-md-4">
+                                <a href="#" title="AC Repair & Service" class="thumb">
+                                                          <img class="img-fluid mx-auto d-block" src="assets/images/ACrepairpic.png" alt="ACrepair">
+                                                          <h5 class="servicePanelLabel">AC Repair & Service</h5>
+                                                        </a>
+                            
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="col-md-4">
+                            <a href="#" title="Electrician" class="thumb">
+                                                         <img class="img-fluid d-block" src="assets/images/electricainpic.png" alt="electricain">
+                                                         <h5 class="servicePanelLabel">Electrician</h5>
+                                                        </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="col-md-4">
+                            <a href="#" title="Home Deep Cleaning" class="thumb">
+                                                         <img class="img-fluid mx-auto d-block" src="assets/images/homeddepcleaning.png" alt="homeddepcleaning">
+                                                         <h5 class="servicePanelLabel">Home Deep Cleaning</h5>
+                                                        </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="col-md-4">
+                            <a href="#" title="Plumber" class="thumb">
+                                                         <img class="img-fluid mx-auto d-block" src="assets/images/plumberpic.png" alt="plumber">
+                                                         <h5 class="servicePanelLabel">Plumber</h5>
+                                                        </a>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev productleftcontrol" href="#slider-2" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon productlefticon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next productrightcontrol" href="#slider-2" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon productrighticon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+       </div> 
+    </div>
+</div>09aug-->
+<style type="text/css" id="slider-css">
+    @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+    /*================================================*/
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
+    .carousel-item > div {
+        float: left;
+    }
+    .carousel-by-item [class*="cloneditem-"] {
+        display: none;
+    }
+    .productleftcontrol{
+        position: absolute;
+        left:-100px;
+    }
+    .productrightcontrol{
+        position:absolute;
+        right:-100px;
+
+    }
+    .productlefticon, .productrighticon{
+        box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+        width: 40px;
+        height: 40px;
+        position: relative;
+        z-index: 1;
+        vertical-align: middle;
+        display: inline-block;
+        overflow: hidden;
+        transition: all ease-in-out 0.5s; 
+        margin: 10px;
+        border-radius: 50%;
+        padding: 0;
+        font-weight:100;
+        border:0px;
+        text-shadow:none;
+        cursor: pointer;
+    }
+    .productlefticon:hover, .productrighticon:hover{
+        width:40px!important;
+        height:40x!important;
+        color:#242424;
+        font-weight:100;
+        outline:none;
+    }
+    .productlefticon:after, .productrighticon:after{
+        font-size: 25px!important;
+
+
+
+    }
+
+
+    @media(max-width: 991px){
+        .productleftcontrol{
+            position: absolute;
+            left:-85px;
+
+        }
+        .productrightcontrol{
+            position:absolute;
+            right:-85px;
+
+        }
+        .productlefticon, .productrighticon{
+            width:35px!important;
+            height:35px!important;
+        }
+        .productlefticon:after, .productrighticon:after{
+            font-size: 23px!important;
+        }
+    }
+    @media(max-width: 767px){
+        .productleftcontrol{
+            position: absolute;
+            left:-55px;
+
+        }
+        .productrightcontrol{
+            position:absolute;
+            right:-55px;
+
+        }
+        .productlefticon, .productrighticon{
+            width:35px!important;
+            height:35px!important;
+        }
+        .productlefticon:after, .productrighticon:after{
+            font-size: 23px!important;
+        }
+    }
+    @media(max-width: 576px){
+        .productleftcontrol{
+            position: absolute;
+            left:-45px;
+
+        }
+        .productrightcontrol{
+            position:absolute;
+            right:-45px;
+
+        }
+        .productlefticon, .productrighticon{
+            width:35px!important;
+            height:35px!important;
+        }
+        .productlefticon:after, .productrighticon:after{
+            font-size: 23px!important;
+        }
+    }
+    @media(max-width: 376px){
+        .productleftcontrol{
+            position: absolute;
+            left:-35px;
+
+        }
+        .productrightcontrol{
+            position:absolute;
+            right:-35px;
+
+        }
+        .productlefticon, .productrighticon{
+            width:35px!important;
+            height:35px!important;
+        }
+        .productlefticon:after, .productrighticon:after{
+            font-size: 23px!important;
+        }
+    }
+</style>
+
+<!--07April-->
+
+<!--
+<div class="serviceBlock">
+<img src="assets/images/plumber.webp"/>
+<h4>Plumber</h4>
+</div>
+<div class="serviceBlock">
+<img src="assets/images/electricain.webp"/>
+<h4>Electrician</h4>
+</div>
+<div class="serviceBlock">
+<img src="assets/images/handyman.webp"/>
+<h4>Handyman</h4>
+</div>
+<div class="serviceBlock">
+<img src="assets/images/ACrepair.webp"/>
+<h4>AC Repair & Service</h4>
+</div>
+<div class="serviceBlock">
+<img src="assets/images/painters.webp"/>
+<h4>Painters</h4>
+</div>
+<div class="serviceBlock">
+<img src="assets/images/packers.webp"/>
+<h4>Packers & Movers</h4>
+</div>
+<div class="serviceBlock">
+<img src="assets/images/homeddepcleaning.webp"/>
+<h4>Home Deep Cleaning</h4>
+</div>
+<div class="serviceBlock">
+<img src="assets/images/kitchendeepcleaning.webp"/>
+<h4>Kitchen Deep Cleaning</h4>
+</div>
+<div class="serviceBlock">
+<img src="assets/images/cartpetcleaning.png"/>
+<h4>Carpet Cleaning</h4>
+</div>-->
+</div>
+
+
+
+
+
+
+
+
+<!--<div class="container services">
+        <h3>Services</h3>
+
+        
+        <div class="container-fluid">
+        <div id="carouselExample" class="carouselPrograms carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner row w-100 mx-auto" role="listbox">
+                        <div class="carousel-item col-md-4  active">
+                           <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="image 1" class="thumb">
+                                          <img class="img-fluid mx-auto d-block" src="assets/images/serviceImage.png" alt="slide 1">
+                                        </a>
+                                        <h4 class="servicePanelLabel">Service</h4>
+                                  </div>
+                                </div>
+                        </div>
+                        <div class="carousel-item col-md-4 ">
+                           <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="image 3" class="thumb">
+                                         <img class="img-fluid mx-auto d-block" src="assets/images/serviceImage.png" alt="slide 2">
+                                        </a>
+                                        <h4 class="servicePanelLabel">Service</h4>
+                                  </div>
+                                </div>
+                        </div>
+                        <div class="carousel-item col-md-4 ">
+                           <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="image 4" class="thumb">
+                                         <img class="img-fluid mx-auto d-block" src="assets/images/serviceImage.png" alt="slide 3">
+                                        </a>
+                                        <h4 class="servicePanelLabel">Service</h4>
+                                  </div>
+                                </div>
+                        </div>
+                        <div class="carousel-item col-md-4 ">
+                                <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="image 5" class="thumb">
+                                         <img class="img-fluid mx-auto d-block" src="assets/images/serviceImage.png" alt="slide 4">
+                                        </a>
+                                        <h4 class="servicePanelLabel">Service</h4>
+                                  </div>
+                                </div>
+                        </div>
+                        <div class="carousel-item col-md-4 ">
+                          <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="image 6" class="thumb">
+                                          <img class="img-fluid mx-auto d-block" src="assets/images/serviceImage.png" alt="slide 5">
+                                        </a>
+                                        <h4 class="servicePanelLabel">Service</h4>
+                                  </div>
+                                </div>
+                        </div>
+                        <div class="carousel-item col-md-4 ">
+                           <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="image 7" class="thumb">
+                                          <img class="img-fluid mx-auto d-block" src="assets/images/serviceImage.png" alt="slide 6">
+                                        </a>
+                                        <h4 class="servicePanelLabel">Service</h4>
+                                  </div>
+                                </div>
+                        </div>
+                        <div class="carousel-item col-md-4 ">
+                           <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="image 8" class="thumb">
+                                          <img class="img-fluid mx-auto d-block" src="assets/images/serviceImage.png" alt="slide 7">
+                                        </a>
+                                        <h4 class="servicePanelLabel">Service</h4>
+                                  </div>
+                                </div>
+                        </div>
+                         <div class="carousel-item col-md-4  ">
+                                <div class="panel panel-default">
+                                  <div class="panel-thumbnail">
+                                        <a href="#" title="image 2" class="thumb">
+                                         <img class="img-fluid mx-auto d-block" src="assets/images/serviceImage.png" alt="slide 8">
+                                        </a>
+                                        <h4 class="servicePanelLabel">Service</h4>
+                                  </div>
+                                  
+                                </div>
+                        </div>
+                </div>
+                <a class="carousel-control-prev serviceSlideLeft" href="#carouselExample" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next text-faded serviceSlideRight" href="#carouselExample" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                </a>
+        </div>
+        
+                </div>
+                
+        <div class="serviceBlock">
+                <img src="assets/images/plumber.webp"/>
+                <h4>Plumber</h4>
+        </div>
+        <div class="serviceBlock">
+                <img src="assets/images/electricain.webp"/>
+                <h4>Electrician</h4>
+        </div>
+        <div class="serviceBlock">
+                <img src="assets/images/handyman.webp"/>
+                <h4>Handyman</h4>
+        </div>
+        <div class="serviceBlock">
+                <img src="assets/images/ACrepair.webp"/>
+                <h4>AC Repair & Service</h4>
+        </div>
+        <div class="serviceBlock">
+                <img src="assets/images/painters.webp"/>
+                <h4>Painters</h4>
+        </div>
+        <div class="serviceBlock">
+                <img src="assets/images/packers.webp"/>
+                <h4>Packers & Movers</h4>
+        </div>
+        <div class="serviceBlock">
+                <img src="assets/images/homeddepcleaning.webp"/>
+                <h4>Home Deep Cleaning</h4>
+        </div>
+        <div class="serviceBlock">
+                <img src="assets/images/kitchendeepcleaning.webp"/>
+                <h4>Kitchen Deep Cleaning</h4>
+        </div>
+        <div class="serviceBlock">
+                <img src="assets/images/cartpetcleaning.png"/>
+                <h4>Carpet Cleaning</h4>
+        </div>
+</div>-->
+<!------------------------------------------------------FIRST FOOTER START------------------------------------------------>
+<!-- Footer -->
+<footer class="page-footer font-small indigo mt-0">
+    <div class="container display-Ejoyy">
+        <div class="row">
+            <div class="col-lg-12 mx-auto Footer_Ejoyy">
+                <ul class="Ejoyy-ul">
+                    <li>
+                        <div class="Ejoyy-ul-div-one">
+                            <span class="Ejoyy-ul-div-one-span">
+                                <div class="Ejoyy-ul-div-two">
+                                    <div class="Ejoyy-ul-heading-main">
+                                        <h5 class="Ejoyy-ul-heading-one">EJOYY</h5>
+                                    </div>
+                                </div>
+                            </span>
+                            <span class="Ejoyy-ul-div-one-last-span-one Ejoyy-color" onClick="toggleAngleBtnfooterone()" data-toggle="collapse" data-target="#collapseExamplefooterone" aria-expanded="false" aria-controls="collapseExamplefooterone"><i class="fa fa-angle-down"></i></span>
+                        </div>
+                        <div class="collapse" id="collapseExamplefooterone">
+                            <ul class="about_footer">
+                                <li class="Ejoyy-ul-div-two-div-li about_footer" style="list-style:none!important">
+                                    <p href="#!">EJOYY is the leading platform for connecting individuals looking for household services with top-quality, independent service professionals.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>  
+            </div>
+            <div class="col-lg-12 mx-auto Footer_Ejoyy">
+                <ul class="Ejoyy-ul">
+                    <li>
+                        <div class="Ejoyy-ul-div-one">
+                            <span class="Ejoyy-ul-div-one-span">
+                                <div class="Ejoyy-ul-div-two">
+                                    <div class="Ejoyy-ul-heading-main">
+                                        <h5 class="Ejoyy-ul-heading-one">SERVICES</h5>
+                                    </div>
+                                </div>
+                            </span>
+                            <span class="Ejoyy-ul-div-one-last-span-two Ejoyy-color" onClick="toggleAngleBtnfootertwo()" data-toggle="collapse" data-target="#collapseExamplefootertwo" aria-expanded="false" aria-controls="collapseExamplefootertwo"><i class="fa fa-angle-down"></i></span>
+                        </div>
+                        <div class="collapse" id="collapseExamplefootertwo">
+                            <ul class="">
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="#">Plumber</a>
+                                </li>
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="#">Electrician</a>
+                                </li>
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="#">Handyman</a>
+                                </li>
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="#">AC Repair & Service</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>  
+            </div>
+            <div class="col-lg-12 mx-auto Footer_Ejoyy">
+                <ul class="Ejoyy-ul">
+                    <li>
+                        <div class="Ejoyy-ul-div-one">
+                            <span class="Ejoyy-ul-div-one-span">
+                                <div class="Ejoyy-ul-div-two">
+                                    <div class="Ejoyy-ul-heading-main">
+                                        <h5 class="Ejoyy-ul-heading-one">OUR COMPANY</h5>
+                                    </div>
+                                </div>
+                            </span>
+                            <span class="Ejoyy-ul-div-one-last-span-three Ejoyy-color" onClick="toggleAngleBtnfooterthree()" data-toggle="collapse" data-target="#collapseExamplefooterthree" aria-expanded="false" aria-controls="collapseExamplefooterthree"><i class="fa fa-angle-down"></i></span>
+                        </div>
+                        <div class="collapse" id="collapseExamplefooterthree">
+                            <ul class="">
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="about" > About Us</a>
+                                </li>
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="contact" > Contact Us</a>
+                                </li>
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="privacy-policy" > Privacy Policy</a>
+                                </li>
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="terms-conditions" > Terms & Conditions</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>  
+            </div>
+            <!--
+            <div class="col-lg-12 mx-auto Footer_Ejoyy">
+                    <ul class="Ejoyy-ul">
+                            <li>
+                                    <div class="Ejoyy-ul-div-one">
+                                            <span class="Ejoyy-ul-div-one-span">
+                                                    <div class="Ejoyy-ul-div-two">
+                                                            <div class="Ejoyy-ul-heading-main">
+                                                                    <h5 class="Ejoyy-ul-heading-one">CONTACT US</h5>
+                                                            </div>
+                                                    </div>
+                                            </span>
+                                            <span class="Ejoyy-ul-div-one-last-span-four Ejoyy-color" onClick="toggleAngleBtnfooterfour()" data-toggle="collapse" data-target="#collapseExamplefooterfour" aria-expanded="false" aria-controls="collapseExamplefooterfour"><i class="fa fa-angle-down"></i></span>
+                                    </div>
+                                    <div class="collapse" id="collapseExamplefooterfour">
+                                            
+                                                    <ul class="">
+                                                            <li class="Ejoyy-ul-div-two-div-li">
+                                                                    <a href="#">Email: info@Ejoyy.com</a>
+                                                            </li>
+                                                            <li class="Ejoyy-ul-div-two-div-li">
+                                                                    <a href="#">Phone: +92 (332) 1234567</a>
+                                                            </li>
+                                                            <li class="Ejoyy-ul-div-two-div-li">
+                                                                    <a href="#">Plot# 100 Block-A, PIA Society,<br>Lahore, Pakistan.</a>
+                                                            </li>
+
+
+                                                    </ul>
+                                            </div>
+                            </li>
+                    </ul>  
+            </div>
+            
+            -->
+        </div>
+    </div>
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left display-Footer">
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-3" style="margin-left:10px;margin-top:30px;">
+
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4" style="color:white">Ejoyy</h5>
+
+                <ul class="list-unstyled">
+                    <li class="footer_links_hover">
+                        <p href="#!">EJOYY is the leading platform for connecting individuals looking for household services with top-quality, independent service professionals.</p>
+                    </li>
+                </ul style="margin-bottom:30px;">
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-3 mx-auto" style="margin-top:30px;">
+
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4" style="color:white">Services</h5>
+
+                <ul class="list-unstyled">
+                    <li class="footer_links_hover">
+                        <a href="carwash"> Car Wash</a>
+                    </li>
+                    <li class="footer_links_hover">
+                        <a href="electrician"> Electrician</a>
+                    </li>
+                    <li class="footer_links_hover">
+                        <a href="plumber"> e Plumber</a>
+                    </li>
+                    <li class="footer_links_hover">
+                        <a href="car_repair"> Car Repairing</a>
+                    </li>
+                </ul style="margin-bottom:30px;">
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-3 mx-auto" style="margin-top:30px;">
+
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4" style="color:white">Our Company</h5>
+
+                <ul class="list-unstyled">
+                    <li class="footer_links_hover">
+                        <a href="about" > About Us</a>
+                    </li>
+                    <li class="footer_links_hover">
+                        <a href="contact"> Contact</a>
+                    </li>
+                    <li class="footer_links_hover">
+                        <a href="privacy-policy" > Privacy Policy</a>
+                    </li>
+                    <li class="footer_links_hover">
+                        <a href="terms-conditions"> Terms & Conditions</a>
+                    </li>
+                </ul style="margin-bottom:30px;">
+
+            </div>
+            <!-- Grid column -->
+            <!--
+                    <hr class="clearfix w-100 d-md-none">
+            
+                    <div class="col-md-3 mx-auto" style="margin-top:30px;">
+        
+                          <h5 class="font-weight-bold text-uppercase mt-3 mb-4" style="color:white">Contact Us</h5>
+                
+                          <ul class="list-unstyled">
+                            <li class="footer_links_hover">
+                              <a href="#!" >Email: info@Ejoyy.com</a>
+                            </li>
+                            <li class="footer_links_hover">
+                              <a href="#!" >Phone: +92 (332) 1234567</a>
+                            </li>
+                            <li class="footer_links_hover">
+                              <a href="#!" >Plot# 100 Block-A, PIA Society,<br>Lahore, Pakistan.</a>
+                            </li>
+                          </ul>
+        
+                    </div>
+            -->
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <div class="fourth_foot">
+        <div class="inner_main_fourth_foot container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="inner_inner_fourth_foot mt-3">
+                        <a class="inner_inner_fourth_foot_anchor_main">
+                            <div class="inner_inner_fourth_foot_anchor_main_div_one inner_inner_fourth_foot_anchor_main_div_two">
+                                <img src="assets/images/lazy.gif" style="width:40px; height:40px" class="fourth_foot_image_one_first fourth_foot_image_one_second fourth_foot_image_one_third">
+                                <img   src="assets/images/favicon.png" style="width:40px; height:40px" class="fourth_foot_image_one_second">
+                            </div>
+                            <span class="footerLabelSpan" itemprop="name">EJOYY</span>  
+                        </a>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="inner_inner_fourth_foot_content" style="text-align:left;">© 2019-20 Ejoyy. All Rights Reserved</div>
+                </div>
+                <style>
+                    .social_icons a{
+                        padding-right:20px;
+                        text-decoration:none;
+                        color:#bababa;
+                        transition:all ease-in-out 0.3s;
+                    }
+                    .social_icons a:hover{
+                        padding-right:20px;
+                        text-decoration:none;
+                        color:#fff;
+
+                    }
+                </style>
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="social_icons inner_inner_fourth_foot_content" style="text-align:left;">
+                        <a href="https://www.facebook.com/ejoyyservices/" class="fa fa-facebook"></a>
+                        <a href="https://twitter.com/ejoyyservices" class="fa fa-twitter"></a> 
+                        <a href="https://www.youtube.com/channel/UCVdHKMgybafpLHWDoMzC4SQ" class="fa fa-youtube"></a> 
+                        <a href="#" class="fa fa-instagram"></a> 
+                        <a href="#" class="fa fa-google-plus"></a></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--------------------------------------------------FOURTH FOOTER END---------------------------------------------------->
+
+</footer>
+
+<!-- Login Signup Modal Window here -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" id='modal_id'>
+            <div class="modal-header">
+                <a class="navbar-brand logo" href="#"><img src="assets/images/logo.png" alt="" style="margin-bottom:-10px; margin-left:10px;"></a>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container">    
+                    <div id="loginbox" style="margin-top:0px;" class="mainbox col-md-12 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+                        <div class="panel panel-info" >   
+
+                            <div style="padding-top:0px" class="panel-body" >
+
+                                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                                <form method="post" action="login" id="loginform" class="form-horizontal" role="form">
+
+
+                                    <div class="col-sm-12 controls">
+                                        <label for="basic-url">Phone Number</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon3"><img src="uploads/flag.png" width="20" height="20">+92</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="phoneNumber" aria-describedby="basic-addon3" placeholder="Your Phone Number" required="required">
+                                            <input type="hidden" id="verificationID" name="verificationID"/>
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="form-group">
+                                        <label for="firstname" class="col-md-3 control-label">Code</label>
+                                        <div class="col-md-12">
+                                            <input type="password" id="password" class="form-control" name="password" placeholder="Code">
+                                        </div>
+                                    </div>-->
+
+
+                                    <div style="margin-top:10px" class="form-group">
+                                        <!-- Button -->
+
+                                        <div class="col-sm-12 controls">
+                                            <button type="button" name="sign-in-button" class="sign-in-button btn btn-dark" id="sign-in-button"><span id='textbutton9'>Continue</span></button>
+                                            <!--<button id="btn-signup" type="button" class="btn btn-default" onClick="$('#loginbox').hide(); $('#signupbox').show()">
+                                                  Sign Up
+                                                  </button>-->
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-12 control">
+                                            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                                                Verify Phone to Continue using Our Services.
+                                                <br><small>This site is protected by reCAPTCHA and the Google 
+                                                    <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                                                    <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </form>     
+
+
+
+                            </div>                     
+                        </div>  
+                    </div>
+                    <div id="signupbox" style="display:none; margin-top:0px" class="mainbox col-md-12 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                        <div class="panel panel-info" >
+                            <div class="panel-heading">
+                                <div style="float:right; font-size: 85%; position: relative; top:-10px"></div>
+                            </div>  
+                            <div class="panel-body" >
+                                <form id="signupform" method = "post" action="register" class="form-horizontal" role="form">
+
+                                    <div id="signupalert" style="display:none" class="alert alert-danger">
+                                        <p>Error:</p>
+                                        <span></span>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <input type="hidden" name="register">
+                                        <label for="email" class="col-md-3 control-label">Username</label>
+                                        <div class="col-md-12">
+                                            <input type="text" class="form-control" name="username" placeholder="Username">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="firstname" class="col-md-3 control-label">Email</label>
+                                        <div class="col-md-12">
+                                            <input type="email" class="form-control" name="email" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstname" class="col-md-3 control-label">Phone</label>
+                                        <div class="col-md-12">
+                                            <input type="tel" class="form-control" name="phone" placeholder="Phone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastname" class="col-md-3 control-label">Passowrd</label>
+                                        <div class="col-md-12">
+                                            <input type="password" class="form-control" name="password" placeholder="Password">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <!-- Button -->                                        
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <input id="btn-signup" type="submit" class="btn btn-default" value="Sign Up"> 
+
+                                            <button id="btn-signup" type="button" class="btn btn-default" onclick="$('#signupbox').hide(); $('#loginbox').show()"><i class="icon-hand-right"></i>Sign In</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12 control">
+                                            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                                                You want to Reset Password?
+                                                <a href="forget_password_front_end" onClick="$('#loginbox').hide(); $('#signupbox').show()">
+                                                    Forget Password
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+                    </div> 
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+
+    body{
+        margin: 0;
+        font-size: .9rem;
+        font-weight: 400;
+        line-height: 1.6;
+        color: #212529;
+        text-align: left;
+        background-color: #f5f8fa;
+    }
+
+    .navbar-laravel
+    {
+        box-shadow: 0 2px 4px rgba(0,0,0,.04);
+    }
+
+    .navbar-brand , .nav-link, .my-form, .login-form
+    {
+        font-family: Raleway, sans-serif;
+    }
+
+    .my-form
+    {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .my-form .row
+    {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .login-form
+    {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .login-form .row
+    {
+        margin-left: 0;
+        margin-right: 0;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="view/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="view/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script>
+                                                    function showDatetime()
+                                                    {
+                                                        var now = new Date();
+                                                        var utcString = now.toISOString().substring(0, 19);
+                                                        var year = now.getFullYear();
+                                                        var month = now.getMonth() + 1;
+                                                        var day = now.getDate();
+                                                        var hour = now.getHours();
+                                                        var minute = now.getMinutes();
+                                                        var second = now.getSeconds();
+                                                        var localDatetime = year + "-" +
+                                                                (month < 10 ? "0" + month.toString() : month) + "-" +
+                                                                (day < 10 ? "0" + day.toString() : day) + "T" +
+                                                                (hour < 10 ? "0" + hour.toString() : hour) + ":" +
+                                                                (minute < 10 ? "0" + minute.toString() : minute) +
+                                                                utcString.substring(16, 19);
+                                                        var datetimeField = document.getElementById("div_time");
+                                                        datetimeField.value = localDatetime;
+                                                    }
+                                                    
+                                                    function do_login()
+                                                    {
+                                                        var first_do_login = 'first_do_login';
+                                                        var phoneNumber = $("#phoneNumber").val();
+                                                        var verificationID = $("#verificationID").val();
+                                                        var len = phoneNumber.length;
+                                                        if (len == 10)
+                                                        {
+                                                            var countryCode = 92;
+                                                            var phoneNumber = countryCode + phoneNumber;
+
+                                                            $.ajax({
+                                                                type: "POST",
+                                                                url: "first_do_login",
+                                                                data: {first_do_login: first_do_login, phoneNumber: phoneNumber},
+                                                                cache: false,
+                                                                data_type: "text",
+                                                                success: function (data) {
+                                                                    //alert(data);
+                                                                    $("#modal_id").html(data);
+                                                                    $('#mModal').modal();
+                                                                }
+                                                            });
+                                                        } else
+                                                        {
+                                                            alert("Please Enter Phone Number Without 0");
+                                                        }
+                                                    }
+                                                    
+                                                    $(document).on('click', function (e) {
+                                                        if ($(e.target).closest("#autoCompleteSuggest").length === 0) {
+                                                            $("#autoCompleteSuggest").hide();
+                                                        }
+                                                    });
+
+                                                    function codeVerify()
+                                                    {
+                                                        $("#enterCodeBtn").html('Please Wait...');
+                                                        document.getElementById("enterCodeBtn").disabled = true;
+                                                        var code = $("#code").val();
+                                                        ConfirmCode(code, 'cv');
+                                                    }
+                                                    function codeVerifyFinal(token)
+                                                    {
+                                                        var code = '';
+                                                        if (token)
+                                                        {
+                                                            code = "CODE";
+                                                        } else
+                                                        {
+                                                            code = "EDOC";
+                                                        }
+                                                        var id = $("#id").val();
+                                                        var code_verification = "code_verification";
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "code_verification",
+                                                            data: {code_verification: code_verification, code: code, id: id},
+                                                            cache: false,
+                                                            data_type: "text",
+                                                            success: function (data) {
+                                                                //alert(data);
+                                                                if (data == 1)
+                                                                {
+                                                                    window.location = "userpanel";
+                                                                } else
+                                                                {
+                                                                    console.log(data);
+                                                                    $("#enterCodeBtn").html('Confirm');
+                                                                    document.getElementById("enterCodeBtn").disabled = false;
+                                                                    alert('Invalid Code');
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                    function codeVerification()
+                                                    {
+                                                        $("#enterCodeBtn").html('Please Wait...');
+                                                        document.getElementById("enterCodeBtn").disabled = true;
+                                                        var code = $("#codef").val();
+                                                        ConfirmCode(code, 'cvf');
+                                                    }
+                                                    function codeVerificationFinal(token)
+                                                    {
+                                                        var code = '';
+                                                        if (token)
+                                                        {
+                                                            code = "CODE";
+                                                        } else
+                                                        {
+                                                            code = "EDOC";
+                                                        }
+                                                        var id = $("#id").val();
+                                                        var codeVerifyFirstLogin = "codeVerifyFirstLogin";
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "codeVerifyFirstLogin",
+                                                            data: {codeVerifyFirstLogin: codeVerifyFirstLogin, code: code, id: id},
+                                                            cache: false,
+                                                            data_type: "text",
+                                                            success: function (data) {
+                                                                if (data == 0)
+                                                                {
+                                                                    $("#enterCodeBtn").html('Confirm');
+                                                                    document.getElementById("enterCodeBtn").disabled = false;
+                                                                    alert('Invalid Code');
+                                                                } else
+                                                                {
+                                                                    $("#modal_id").html(data);
+                                                                    $('#loadMe').modal('show');
+                                                                    setTimeout(function () {
+                                                                        $('#loadMe').modal('hide');
+                                                                    }, 500);
+                                                                    $('#mModal').modal();
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                    function saveProfileData()
+                                                    {
+                                                        $(".saveProfile").html('Please Wait...');
+                                                        $(".saveProfile").attr("disabled", true);
+                                                        var username = $("#username").val();
+                                                        var email = $("#email").val();
+                                                        var id = $("#id").val();
+                                                        var saveProfiles = "saveProfiles";
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "saveProfiles",
+                                                            data: {saveProfiles: saveProfiles, username: username, email: email, id: id},
+                                                            cache: false,
+                                                            data_type: "text",
+                                                            success: function (data) {
+                                                                if (data == 1)
+                                                                {
+                                                                    window.location = "userpanel";
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+</script>
+<script>
+    function increaseCountValue(id) {
+         var value = parseInt(document.getElementById('number_' + id).value, 10);
+        value = isNaN(value) ? 1 : value;
+        value++;
+        document.getElementById('number_' + id).value = value;
+
+
+
+        var ID = '#predefined_jobs_' + id;
+        $(ID).prop('checked', true);
+
+        var price = $("#price").val();
+        var convence = $("#convence").val();
+        var previous_charges = $("#previous_charges").val();
+        var totalPrice = price * value;
+        $(".subTotal").html(totalPrice);
+        var discount = $("#discount").val();
+        var finalDiscount = discount * value;
+        $(".discount").html(finalDiscount);
+        var finalPrice = +convence + +previous_charges + +totalPrice - finalDiscount;
+        $(".finalprice").html(finalPrice);
+        var qty = document.getElementById('number_' + id).value;
+
+        if (value > 0) {
+            predefined_jobs = $(".pre-def-jobs-boxes >div > input:checkbox:checked").get();
+            var job_ids = $.map(predefined_jobs, function (element) {
+                return $(element).attr("value");
+            });
+
+            var qty_sep = job_ids.join(",");
+            //var qty_ids= qty_sep.split(",");
+            //alert(qty_ids);
+
+            var qty_idS = JSON.parse("[" + qty_sep + "]");
+
+            var qty_values = [];
+            for (var i = 0; i < qty_idS.length; i++) {
+                qty_values.push(document.getElementById('number_' + qty_idS[i]).value);
+            }
+
+            $('.btn-next-cat').show();//Show Next Button
+            document.getElementById('quantity_next_cat').innerHTML = value;
+
+
+            $.ajax({
+                type: "POST",
+                url: "job_details",
+                data: {job_details: true, JobIDs: job_ids.join(","), quantity: qty_values.join(",")},
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        document.getElementById('price_next_cat').innerHTML = data[0];
+                        document.getElementById('quantity_next_cat').innerHTML = data[1];
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        } else {
+            $('.btn-next-cat').hide();//Show Next Button
+        }
+
+    }
+    function decreaseCountValue(id) {
+        var value = parseInt(document.getElementById('number_' + id).value, 10);
+        value = isNaN(value) ? 0 : value;
+        value < 0 ? value = 0 : '';
+        if (value == 1) {
+            var ID = '#predefined_jobs_' + id;
+            $(ID).prop('checked', false);
+        }
+        if(value == 0 || value < 0){
+            alert('Please select as least 1 quantity');
+            return;
+        }
+        value--;
+        document.getElementById('number_' + id).value = value;
+        var price = $("#price").val();
+        var convence = $("#convence").val();
+        var previous_charges = $("#previous_charges").val();
+        var totalPrice = price * value;
+        $(".subTotal").html(totalPrice);
+        var discount = $("#discount").val();
+        var finalDiscount = discount * value;
+        $(".discount").html(finalDiscount);
+        var finalPrice = +previous_charges + +totalPrice - finalDiscount - convence;
+        $(".finalprice").html(finalPrice);
+        var qty = document.getElementById('number_' + id).value;
+        
+        predefined_jobs = $(".pre-def-jobs-boxes >div > input:checkbox:checked").get();
+        var job_ids = $.map(predefined_jobs, function (element) {
+            return $(element).attr("value");
+        });
+
+        var qty_sep = job_ids.join(",");
+        //var qty_ids= qty_sep.split(",");
+        //alert(qty_ids);
+
+        var qty_idS = JSON.parse("[" + qty_sep + "]");
+
+        var qty_values = [];
+        for (var i = 0; i < qty_idS.length; i++) {
+            qty_values.push(document.getElementById('number_' + qty_idS[i]).value);
+        }
+        
+        $('.btn-next-cat').show();//Show Next Button
+        if (job_ids.length > 0 && qty_values.length > 0) {
+            $.ajax({
+                type: "POST",
+                url: "job_details",
+                data: {job_details: true, JobIDs: job_ids.join(","), quantity: qty_values.join(",")},
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        document.getElementById('price_next_cat').innerHTML = data[0];
+                        document.getElementById('quantity_next_cat').innerHTML = data[1];
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        } else {
+            $('.btn-next-cat').hide();//Show Next Button  
+        }
+
+        
+        
+        /*$.ajax({
+            type: "POST",
+            url: "qty",
+            data: {qty: qty},
+            cache: false,
+            dataType: "text",
+            success: function (data) {
+                console.log(data);
+            }
+        });*/
+
+    }
+    function increaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 1 : value;
+        value++;
+        document.getElementById('number').value = value;
+        var price = $("#price").val();
+        var convence = $("#convence").val();
+        var previous_charges = $("#previous_charges").val();
+        var totalPrice = price * value;
+        $(".subTotal").html(totalPrice);
+        var discount = $("#discount").val();
+        var finalDiscount = discount * value;
+        $(".discount").html(finalDiscount);
+        var finalPrice = +convence + +previous_charges + +totalPrice - finalDiscount;
+        $(".finalprice").html(finalPrice);
+        var qty = document.getElementById('number').value;
+
+        $.ajax({
+            type: "POST",
+            url: "qty",
+            data: {qty: qty},
+            cache: false,
+            dataType: "text",
+            success: function (data) {
+                console.log(data);
+            }
+        });
+
+    }
+
+    function decreaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 1 : value;
+        value < 0 ? value = 0 : '';
+        if(value == 0 || value < 0){
+            alert('Please select as least 1 quantity');
+            return;
+        }
+        value--;
+        document.getElementById('number').value = value;
+        var price = $("#price").val();
+        var convence = $("#convence").val();
+        var previous_charges = $("#previous_charges").val();
+        var totalPrice = price * value;
+        $(".subTotal").html(totalPrice);
+        var discount = $("#discount").val();
+        var finalDiscount = discount * value;
+        $(".discount").html(finalDiscount);
+        var finalPrice = +previous_charges + +totalPrice - finalDiscount - convence;
+        $(".finalprice").html(finalPrice);
+        var qty = document.getElementById('number').value;
+
+        $.ajax({
+            type: "POST",
+            url: "qty",
+            data: {qty: qty},
+            cache: false,
+            dataType: "text",
+            success: function (data) {
+                console.log(data);
+            }
+        });
+
+    }
+</script>
+
+
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDPJ_5jmxKFHiIilfdulsMQAfhi-sRejgM",
+    authDomain: "ejoyy-c7c9d.firebaseapp.com",
+    databaseURL: "https://ejoyy-c7c9d.firebaseio.com",
+    projectId: "ejoyy-c7c9d",
+    storageBucket: "",
+    messagingSenderId: "710718090277",
+    appId: "1:710718090277:web:b5f54684f2957c4629e3cc"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  /*var ticker = setInterval(function(){
+       
+    try{
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+    'size': 'invisible',
+    'callback': function(response) {
+      onSignInSubmit();
+    }
+  });
+  
+      
+   
+    
+  recaptchaVerifier.render().then(function(widgetId) {
+    window.recaptchaWidgetId = widgetId;
+  });
+            clearInterval(ticker);
+        } 
+        catch(e) {
+            //console.log(e);
+        }
+    },100);*/
+    
+
+    
+    //During Service Order
+    $(document).on('click', '#serviceBtnOrder', function(){
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recapchta-container', {
+                'size': 'normal',
+                'callback': function (response) {
+                    onServiceOrder();
+                },
+                'expired-callback': function () {
+                    console.log('expires call back');
+                }
+            });
+
+            recaptchaVerifier.render().then(function (widgetId) {
+                window.recaptchaWidgetId = widgetId;
+            });
+    });
+    
+    //For User Sign In
+    $(document).on('click', '#sign-in-button', function(){
+        
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+                'size': 'invisible',
+                'callback': function (response) {
+                    onSignInSubmit();
+                }
+            });
+            
+            recaptchaVerifier.render().then(function (widgetId) {
+                window.recaptchaWidgetId = widgetId;
+            });
+    });
+    
+    //For User Log In
+    $(document).on('click', '#loginBtn', function(){
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('loginBtn', {
+            'size': 'invisible',
+            'callback': function(response) {
+                onLoginSubmit();
+                console.log(response);
+            }
+        });
+    
+        recaptchaVerifier.render().then(function (widgetId) {
+                window.recaptchaWidgetId = widgetId;
+            });
+    });
+    
+      var confResult="";
+    
+    
+    function onSignInSubmit() {
+        $("#sign-in-button").html('Please Wait...');
+         document.getElementById("sign-in-button").disabled = true;
+        var phoneNumber = "+92"+document.getElementById("phoneNumber").value;
+        var appVerifier = window.recaptchaVerifier;
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then(function (confirmationResult) {
+            //console.log(confirmationResult);
+            confResult=confirmationResult;
+            document.getElementById('verificationID').value=confirmationResult.verificationId;
+            do_login();
+        }).catch(function (error) {
+          console.log('Error during sign In With Phone Number', error);
+        });
+    }
+    
+    function onLoginSubmit() {
+     $("#loginBtn").html('Please Wait...');
+         document.getElementById("loginBtn").disabled = true;
+        var phoneNumber = "+92"+document.getElementById("phone").value;
+        var appVerifier = window.recaptchaVerifier;
+        console.log(appVerifier);
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then(function (confirmationResult) {
+            //console.log(confirmationResult);
+            confResult=confirmationResult;
+            phoneBooking();
+        }).catch(function (error) {
+          console.log('Error during Log In With Phone Number', error);
+        });
+    }
+    
+    function onServiceOrder() {
+     $("#serviceBtnOrder").html('Please Wait...');
+         document.getElementById("serviceBtnOrder").disabled = true;
+        var phoneNumber = "+92"+document.getElementById("phone").value;
+        var appVerifier = window.recaptchaVerifier;
+        console.log(appVerifier);
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then(function (confirmationResult) {
+            //console.log(confirmationResult);
+            confResult=confirmationResult;
+            phoneBooking();
+        }).catch(function (error) {
+          console.log('Error during Log In With Phone Number', error);
+        });
+    }
+
+function ConfirmCode(code,source)
+{
+    confResult.confirm(code).then(function (result) {
+        console.log(source);
+       if(source=='cvf')
+       {
+           codeVerificationFinal(1);
+       }
+       else if(source=='cv')
+       {
+            codeVerifyFinal(1);
+       }
+       else if(source=='cvue')
+       {
+           codeVerificationUserExistsFinal(1);
+       }
+       else
+       {
+           codeVerificationUserNotExistsFinal(1);
+       }
+    }).catch(function (error) {
+       if(source=='cvf')
+       {
+           codeVerificationFinal(0);
+       }
+        else if(source=='cv')
+       {
+            codeVerifyFinal(0);
+       }
+       else if(source=='cvue')
+       {
+           codeVerificationUserExistsFinal(0);
+       }
+       else
+       {
+           codeVerificationUserNotExistsFinal(0);
+       }
+    });
+}
+</script>
+<!------------------------------------------------------FOOTER END HERE------------------------------------------------>
+
+<!--    <script>
+        
+$('#carouselExample').on('slide.bs.carousel', function (e) {
+
+  
+        var $e = $(e.relatedTarget);
+        var idx = $e.index();
+        var itemsPerSlide = 3;
+        var totalItems = $('#carouselExample .carousel-item').length;
+        
+        if (idx >= totalItems-(itemsPerSlide-1)) {
+                var it = itemsPerSlide - (totalItems - idx);
+                for (var i=0; i<it; i++) {
+                        // append slides to end
+                        if (e.direction=="left") {
+                                $('#carouselExample .carousel-item').eq(i).appendTo('.carousel-inner');
+                        }
+                        else {
+                                $('#carouselExample .carousel-item').eq(0).appendTo('.carousel-inner');
+                        }
+                }
+        }
+});
+
+
+
+
+
+ 
+</script>-->
+<!--07April-->
+<script type="text/javascript">
+    function GetUnique(e){var l = [], s = temp_c = [], t = ["col-md-1", "col-md-2", "col-md-3", "col-md-4", "col-md-6", "col-md-12", "col-sm-1", "col-sm-2", "col-sm-3", "col-sm-4", "col-sm-6", "col-sm-12", "col-lg-1", "col-lg-2", "col-lg-3", "col-lg-4", "col-lg-6", "col-lg-12", "col-xs-1", "col-xs-2", "col-xs-3", "col-xs-4", "col-xs-6", "col-xs-12", "col-xl-1", "col-xl-2", "col-xl-3", "col-xl-4", "col-xl-6", "col-xl-12"]; $(e).each(function(){for (var l = $(e + " > div").attr("class").split(/\s+/), t = 0; t < l.length; t++)s.push(l[t])}); for (var c = 0; c < s.length; c++)temp_c = s[c].split("-"), 2 == temp_c.length && (temp_c.push(""), temp_c[2] = temp_c[1], temp_c[1] = "xs", s[c] = temp_c.join("-")), - 1 == $.inArray(s[c], l) && $.inArray(s[c], t) && l.push(s[c]); return l}function setcss(e, l, s){for (var t = ["", "", "", "", "", ""], c = d = f = g = 0, r = [1200, 992, 768, 567, 0], a = "", o = [], a = 0; a < e.length; a++){var i = e[a].split("-"); if (3 == i.length){switch (i[1]){case"xl":d = 0; break; case"lg":d = 1; break; case"md":d = 2; break; case"sm":d = 3; break; case"xs":d = 4}t[d] = i[2]}}for (var n = 0; n < t.length; n++)if ("" != t[n]){if (0 == c && (c = 12 / t[n]), f = 12 / t[n], g = 100 / f, a = s + " > .carousel-item.active.carousel-item-right," + s + " > .carousel-item.carousel-item-next {-webkit-transform: translate3d(" + g + "%, 0, 0);transform: translate3d(" + g + ", 0, 0);left: 0;}" + s + " > .carousel-item.active.carousel-item-left," + s + " > .carousel-item.carousel-item-prev {-webkit-transform: translate3d(-" + g + "%, 0, 0);transform: translate3d(-" + g + "%, 0, 0);left: 0;}" + s + " > .carousel-item.carousel-item-left, " + s + " > .carousel-item.carousel-item-prev.carousel-item-right, " + s + " > .carousel-item.active {-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);left: 0;}", f > 1){for (k = 0; k < f - 1; k++)o.push(l + " .cloneditem-" + k); o.length && (a = a + o.join(",") + "{display: block;}"), o = []}0 != r[n] && (a = "@media all and (min-width: " + r[n] + "px) and (transform-3d), all and (min-width:" + r[n] + "px) and (-webkit-transform-3d) {" + a + "}"), $("#slider-css").prepend(a)}$(l).each(function(){for (var e = $(this), l = 0; l < c - 1; l++)(e = e.next()).length || (e = $(this).siblings(":first")), e.children(":first-child").clone().addClass("cloneditem-" + l).appendTo($(this))})}
+
+//Use Different Slider IDs for multiple slider
+    $(document).ready(function() {
+    var item = '#slider-1 .carousel-item';
+    var item_inner = "#slider-1 .carousel-inner";
+    classes = GetUnique(item);
+    setcss(classes, item, item_inner);
+    var item_1 = '#slider-2 .carousel-item';
+    var item_inner_1 = "#slider-2 .carousel-inner";
+    classes = GetUnique(item_1);
+    setcss(classes, item_1, item_inner_1);
+    var item_2 = '#slider-3 .carousel-item';
+    var item_inner_2 = "#slider-3 .carousel-inner";
+    classes = GetUnique(item_2);
+    setcss(classes, item_2, item_inner_2);
+    var item_3 = '#slider-4 .carousel-item';
+    var item_inner_3 = "#slider-4 .carousel-inner";
+    classes = GetUnique(item_3);
+    setcss(classes, item_3, item_inner_3);
+    var item_4 = '#slider-5 .carousel-item';
+    var item_inner_4 = "#slider-5 .carousel-inner";
+    classes = GetUnique(item_4);
+    setcss(classes, item_4, item_inner_4);
+    });
+</script>
+<script>
+
+    $('#carouselExample').on('slide.bs.carousel', function (e) {
+
+
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 3;
+    var totalItems = $('#carouselExample .slider').length;
+    if (idx >= totalItems - (itemsPerSlide - 1)) {
+    var it = itemsPerSlide - (totalItems - idx);
+    for (var i = 0; i < it; i++) {
+    // append slides to end
+    if (e.direction == "left") {
+    $('#carouselExample .slider').eq(i).appendTo('.carous-inner');
+    }
+    else {
+    $('#carouselExample .slider').eq(0).appendTo('.carous-inner');
+    }
+    }
+    }
+    });
+</script>
+<!--07April-->
+
+
+</body>
+</html>
