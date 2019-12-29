@@ -91,4 +91,26 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+    # Configure mailer
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: ENV['APP_HOST'] }
+  config.action_mailer.asset_host = ENV['APP_HOST']
+
+  ActionMailer::Base.smtp_settings = {
+    user_name: ENV['SENDGRID_USERNAME'],
+    password: ENV['SENDGRID_PASSWORD'],
+    domain: ENV['APP_HOST'],
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
+
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[#{ENV['APP_HOST']}] ",
+    sender_address: 'noreply@sahulatservices.herokuapp.com',
+    exception_recipients: ['arslanrao94@gmail.com']
+  }
 end
