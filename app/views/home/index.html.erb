@@ -9,17 +9,9 @@
                         <div class="_2ykZVaMUWqV5_bRuNpJj5p">
                             <div class="_25bTNxnaCgmCkB4EMGBxla" id="myelement">
                                 <span class="_2fUFYWAA7dnCEH9-BUvrfq">
-                                        <!--<span id="prevIcon" class="undefined" data-icon=""></span>-->
-                                    <span><i class="fa fa-location-arrow" style="font-size:18px;"></i></span>
                                 </span>
                                 <span class="_2qh4NEDZ9KjZW98gxOQxGC">Sargodha</span>
-                                <span class="_37R_iCtaJwPiOqFR1umRkV">
-                                    <span><i class="fa fa-sort-desc" style="font-size:20px;"></i></span>
-                                </span>
                             </div>
-                            <ul id="another-element"  class="_1p1W1izIPf3HPQYgWKrXzi" style="display:none">
-
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -32,7 +24,7 @@
                     <div class="_1nWdgpvLgQlilehk2f13Ip _188u3GtaUtRL1HqZGj9sRJ _12flgAAstjcdXCsD_K1PvI">
                         <div class="">
                             <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
-                                <input type="search" placeholder="Search for a service" onkeyup="myFunction()" id="search" class="_2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0" value="">
+                                <input type="search" placeholder="Search for a service" onclick="redirectToBooking()" id="search" class="_2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0" value="">
                             </div>
                         </div>
 
@@ -63,38 +55,6 @@
 
 <!-- The Modal -->
 <script>
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: "cities",
-            //data: {about_service:about_service,serviceID:serviceID},
-            cache: false,
-            data_type: "text",
-            success: function (data) {
-                //alert(data);
-                var obj = JSON.parse(data);
-
-                $("#another-element").html();
-                for (var i = 0; i < obj.length; i++) {
-                    if(document.getElementById('another-element') !== null){
-                      document.getElementById('another-element').innerHTML += ' <li class="" value="obj[i].id">' + obj[i].city_name + '</li>';  
-                    }
-                    
-                }
-            }
-        });
-
-        $('#myelement').click(function (e) {
-            $('#another-element').stop(true).slideToggle();
-        });
-        $(document).click(function (e) {
-            if (!$(e.target).closest('#myelement, #another-element').length) {
-                $('#another-element').stop(true).slideUp();
-            }
-        });
-    });
-</script>
-<script>
 
     $('#carouselExampleProduct').on('slide.bs.carousel', function (e) {
 
@@ -119,40 +79,11 @@
 </script> 
 
 <script>
-    var service_id = "";
-    var delievery_status_instant = "";
-    var delievery_status_schdule = "";
-    var addressMap = "";
-    var sub_id = "";
-    var notes = "";
-    var job = [];
-    var current_location = "";
-    function search()
+ 
+    function redirectToBooking()
     {
-        var search = $("#search").val();
-        //alert(search);
-        //$( ".four_div" ).html('<div class="modal" id="myModal"><div class="modal-dialog"><div class="modal-content"><div class="modal-header" ><h4 class="modal-title" style="margin-left:200px;">'+search+'</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body">Modal body..</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div>');
-    }
-    function myFunction()
-    {
-        var search = $("#search").val();
-        //alert(search);
-        $.ajax({
-            type: "POST",
-            url: "search",
-            data: {search: search},
-            cache: false,
-            success: function (data) {
-                //alert(data);
-                var obj = JSON.parse(data);
-                $("#result").html('<div id="autoCompleteSuggest" style=""></div>');
-                for (var i = 0; i < obj.length; i++) {
-                    document.getElementById('autoCompleteSuggest').innerHTML += '<a style="text-decoration:none;z-index:9!important;"  href=""  onClick="event.preventDefault(); get(\'' + obj[i].id + '\')"><li style="text-decoration:none;z-index:9!important;" class="_1Y4fusHjLmbUO8qKerbIbn HiAwldacoqPza4ANMTohE" data-index="0"><div class="_1NibO0nZPVbXSu_eOFkSAk"><div data-position="1" data-category="fitness_trainer_at_home" class="_1-ZuYSE5ugCHG5vD29RlOq"><div class="yYS2fiJ4WPXN7erEQu0nk"><span class="_1wuf_RfgsK431M_TzQ1RQm"><span class="_2t4u8Mdp2tKq7cJx0RjGL0" data-icon="A"></span></span><span id="' + obj[i].id + '" class="_1xt3ldzRB6tmh5GhIzLCNK">' + obj[i].service_name + '</span></div></div></div></li></a>';
-                    // document.getElementById('autoCompleteSuggest').innerHTML+='<div class="search_result_output" ><a  href="" id="'+obj[i].id+'" onClick="event.preventDefault(); get(\''+obj[i].id+'\')">'+ obj[i].service_name +'</a></div>';
-                    //$(".table").html('<table border="1" style="margin-top:7px;margin-left:-710px;background-color:white;border-radius:5px !important;"><tr><td style="width:400px;height:26px;"><a href="" id="'+obj[i].id+'" onClick="event.preventDefault(); get(\''+obj[i].id+'\')">'+ obj[i].service_name +'</a></td></tr></table>');
-                }
-            }
-        });
+ 		window.location.replace("/booking");
+
     }
 </script>
 <script>
@@ -1243,14 +1174,10 @@
 <div class="container-fluid third_section" style='z-index:999;'>
             <div class="inner_third_section">
                 <ul class="third_section_unorderlist">
-                    <li><a href="carwash"><img src="assets/images/car.png" style="height:50px;width:40px;" ><br>Car Wash</a></li>
-                    <li><a href="electrician"><img src="assets/images/plug.png" style="height:50px;width:40px;" ><br>Electrician</a></li>
-                    <li><a href="plumber"><img src="assets/images/faucet.png" style="height:50px;width:40px;" ><br>e Plumber</a></li>
-                    <li><a href="ac_service"><img src="assets/images/air-conditioner.png" style="height:50px;width:40px;" ><br>Ac</a></li>
-                    <li><a href="home-cleaning"><img src="assets/images/frying-pan.png" style="height:50px;width:40px;" ><br>Home Cleaning</a></li>
-                    <!--<li><a href="movers_packers"><img src="assets/images/maintenance.png" style="height:50px;width:40px;" ><br>Movers & Packers</a></li>-->
-                    <li><a href="pestcontrol"><img src="assets/images/pest_control.png" style="height:50px;width:40px;" ><br>Pest Control</a></li>
-                    <li><a href="beautician"><img src="assets/images/hairdryer.png" style="height:50px;width:40px;" ><br>Beautician</a></li>
+                    <li><a href="/booking"><img src="assets/images/plug.png" style="height:50px;width:40px;" ><br>Electrician</a></li>
+                    <li><a href="/booking"><img src="assets/images/faucet.png" style="height:50px;width:40px;" ><br>e Plumber</a></li>
+                    <li><a href="/booking"><img src="assets/images/air-conditioner.png" style="height:50px;width:40px;" ><br>Ac</a></li>
+                    <li><a href="/booking"><img src="assets/images/frying-pan.png" style="height:50px;width:40px;" ><br>Home Cleaning</a></li>
                 </ul>
             </div>
 
@@ -1259,21 +1186,21 @@
         <tbody>
             <tr>
                 <td><a href="carwash" class="anchor_table_services"><img src="assets/images/car.png" style="height:50px;width:50px;" ><br>Car Wash</td>
-                        <td><a href="electrician" class="anchor_table_services"><img src="assets/images/plug.png" style="height:50px;width:50px;" ><br>Electrician</a></td>
-                        <td><a href="plumber" class="anchor_table_services"><img src="assets/images/faucet.png" style="height:50px;width:50px;" ><br>e Plumber</a></td>
+                        <td><a href="/booking" class="anchor_table_services"><img src="assets/images/plug.png" style="height:50px;width:50px;" ><br>Electrician</a></td>
+                        <td><a href="/booking" class="anchor_table_services"><img src="assets/images/faucet.png" style="height:50px;width:50px;" ><br>e Plumber</a></td>
             </tr>
         </tbody>
 
         <tbody>
             <tr style="border-top:0px;">
-                <td><a href="ac_service" class="anchor_table_services"><img src="assets/images/air-conditioner.png" style="height:50px;width:50px;" ><br>Ac</a></td>
-                <td><a href="home-cleaning" class="anchor_table_services"><img src="assets/images/frying-pan.png" style="height:50px;width:50px;" ><br>Home Cleaning</a></td>
-                <td><a href="movers&packers" class="anchor_table_services"><img src="assets/images/maintenance.png" style="height:50px;width:50px;" ><br>Movers & Packers</a></td>
+                <td><a href="/booking" class="anchor_table_services"><img src="assets/images/air-conditioner.png" style="height:50px;width:50px;" ><br>Ac</a></td>
+                <td><a href="/booking" class="anchor_table_services"><img src="assets/images/frying-pan.png" style="height:50px;width:50px;" ><br>Home Cleaning</a></td>
+                <td><a href="/booking" class="anchor_table_services"><img src="assets/images/maintenance.png" style="height:50px;width:50px;" ><br>Movers & Packers</a></td>
             </tr>
         </tbody>
         <tbody>
             <tr style="border-top:0px;">
-                <td><a href="beautician" class="anchor_table_services"><img src="assets/images/hairdryer.png" style="height:50px;width:50px;" ><br>Beautician</a></td>
+                <td><a href="/booking" class="anchor_table_services"><img src="assets/images/hairdryer.png" style="height:50px;width:50px;" ><br>Beautician</a></td>
                 <td style="border-right:0px!important;"></td>
                 <td></td>
             </tr>
@@ -1295,18 +1222,9 @@
             <div class="row">
                 <div id="slider-1" class="carousel carousel-by-item slide" data-ride="carousel">
                     <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
+                                <div class="carousel-item active">
                                 <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="carwash" title="Car Wash" class="thumb">
-                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/ewash.png" alt="Car Wash">
-                                        <h5 class="servicePanelLabel">Car Wash</h5>
-                                    </a>
-
-                                </div>
-                            </div>
-                                <div class="carousel-item ">
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="electrician" title="Electrician" class="thumb">
+                                    <a href="/booking" title="Electrician" class="thumb">
                                         <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/category_3d171bc0.jpeg" alt="Electrician">
                                         <h5 class="servicePanelLabel">Electrician</h5>
                                     </a>
@@ -1315,7 +1233,7 @@
                             </div>
                                 <div class="carousel-item ">
                                 <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="plumber" title="Plumber" class="thumb">
+                                    <a href="/booking" title="Plumber" class="thumb">
                                         <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/category_3e5fef70.jpeg" alt="Plumber">
                                         <h5 class="servicePanelLabel">Plumber</h5>
                                     </a>
@@ -1324,7 +1242,7 @@
                             </div>
                                 <div class="carousel-item ">
                                 <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="carpenters" title="Carpenters" class="thumb">
+                                    <a href="/booking" title="Carpenters" class="thumb">
                                         <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/category_3c3631a0.jpeg" alt="Carpenters">
                                         <h5 class="servicePanelLabel">Carpenters</h5>
                                     </a>
@@ -1333,25 +1251,7 @@
                             </div>
                                 <div class="carousel-item ">
                                 <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="pestcontrol" title="Pest Control" class="thumb">
-                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/pest-control_Desktop.jpg" alt="Pest Control">
-                                        <h5 class="servicePanelLabel">Pest Control</h5>
-                                    </a>
-
-                                </div>
-                            </div>
-                                <div class="carousel-item ">
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="partydecoration" title="Party Decoration" class="thumb">
-                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/Birthday-Party-Planner_Desktop-1.jpg" alt="Party Decoration">
-                                        <h5 class="servicePanelLabel">Party Decoration</h5>
-                                    </a>
-
-                                </div>
-                            </div>
-                                <div class="carousel-item ">
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="ac_service" title="AC Technician" class="thumb">
+                                    <a href="/booking" title="AC Technician" class="thumb">
                                         <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/Ac-Repair_Luminosity_Desktop.jpg" alt="AC Technician">
                                         <h5 class="servicePanelLabel">AC Technician</h5>
                                     </a>
@@ -1360,7 +1260,7 @@
                             </div>
                                 <div class="carousel-item ">
                                 <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="home-cleaning" title="Home Cleaning" class="thumb">
+                                    <a href="/booking" title="Home Cleaning" class="thumb">
                                         <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/home.jpg" alt="Home Cleaning">
                                         <h5 class="servicePanelLabel">Home Cleaning</h5>
                                     </a>
@@ -1369,34 +1269,7 @@
                             </div>
                                 <div class="carousel-item ">
                                 <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="car_repairing" title="Car Repairing" class="thumb">
-                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/car-repair.jpg" alt="Car Repairing">
-                                        <h5 class="servicePanelLabel">Car Repairing</h5>
-                                    </a>
-
-                                </div>
-                            </div>
-                                <div class="carousel-item ">
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="beautician" title="Beautician" class="thumb">
-                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/landscape-1481045420-facial.jpg" alt="Beautician">
-                                        <h5 class="servicePanelLabel">Beautician</h5>
-                                    </a>
-
-                                </div>
-                            </div>
-                                <div class="carousel-item ">
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="construction" title="Construction & Interior" class="thumb">
-                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/11111.jpg" alt="Construction & Interior">
-                                        <h5 class="servicePanelLabel">Construction & Interior</h5>
-                                    </a>
-
-                                </div>
-                            </div>
-                                <div class="carousel-item ">
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <a href="Appliance Repairing" title="Appliance Repairing" class="thumb">
+                                    <a href="/booking" title="Appliance Repairing" class="thumb">
                                         <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/dc-drive-repair.jpg" alt="Appliance Repairing">
                                         <h5 class="servicePanelLabel">Appliance Repairing</h5>
                                     </a>
@@ -1429,9 +1302,9 @@
             </div>
         </div>
         <div class="row" style="margin-top:10px;">
-            <a href="shop" class="col-xl-3 col-lg-4 col-md-5 bookservice_Button" style="color:#fff; text-decoration:none;font-weight:bold;font-size:16px;">Shop</a>
+            <span class="col-xl-4 col-lg-4 col-md-4" style="color:#fff; text-decoration:none;font-weight:bold;font-size:16px;"></span>
 
-            <a href="services"  class="col-xl-3 col-lg-4 col-md-5 bookservice_Button" style="color:#fff; text-decoration:none;margin-left:5px;font-weight:bold;font-size:16px;">Book Service</a>
+            <a href="/booking"  class="col-xl-3 col-lg-4 col-md-5 bookservice_Button" style="color:#fff; text-decoration:none;margin-left:5px;font-weight:bold;font-size:16px;">Book Service</a>
         </div>
     </div>
 </section>
@@ -1899,16 +1772,16 @@
                         <div class="collapse" id="collapseExamplefooterthree">
                             <ul class="">
                                 <li class="Ejoyy-ul-div-two-div-li">
-                                    <a href="about" > About Us</a>
+                                    <a href="#" > About Us</a>
                                 </li>
                                 <li class="Ejoyy-ul-div-two-div-li">
-                                    <a href="contact" > Contact Us</a>
+                                    <a href="#" > Contact Us</a>
                                 </li>
                                 <li class="Ejoyy-ul-div-two-div-li">
-                                    <a href="privacy-policy" > Privacy Policy</a>
+                                    <a href="#" > Privacy Policy</a>
                                 </li>
                                 <li class="Ejoyy-ul-div-two-div-li">
-                                    <a href="terms-conditions" > Terms & Conditions</a>
+                                    <a href="#" > Terms & Conditions</a>
                                 </li>
 
                             </ul>
@@ -1985,16 +1858,16 @@
 
                 <ul class="list-unstyled">
                     <li class="footer_links_hover">
-                        <a href="carwash"> Car Wash</a>
+                        <a href="/booking"> Electrician</a>
                     </li>
                     <li class="footer_links_hover">
-                        <a href="electrician"> Electrician</a>
+                        <a href="/booking"> Plumber</a>
                     </li>
                     <li class="footer_links_hover">
-                        <a href="plumber"> e Plumber</a>
+                        <a href="/booking"> Carpenters</a>
                     </li>
                     <li class="footer_links_hover">
-                        <a href="car_repair"> Car Repairing</a>
+                        <a href="/booking"> AC Repairing</a>
                     </li>
                 </ul style="margin-bottom:30px;">
 
@@ -2011,16 +1884,16 @@
 
                 <ul class="list-unstyled">
                     <li class="footer_links_hover">
-                        <a href="about" > About Us</a>
+                        <a href="#" > About Us</a>
                     </li>
                     <li class="footer_links_hover">
-                        <a href="contact"> Contact</a>
+                        <a href="#"> Contact</a>
                     </li>
                     <li class="footer_links_hover">
-                        <a href="privacy-policy" > Privacy Policy</a>
+                        <a href="#" > Privacy Policy</a>
                     </li>
                     <li class="footer_links_hover">
-                        <a href="terms-conditions"> Terms & Conditions</a>
+                        <a href="#"> Terms & Conditions</a>
                     </li>
                 </ul style="margin-bottom:30px;">
 
