@@ -32,6 +32,6 @@ class HomeController < ApplicationController
     @client = Twilio::REST::Client.new(account_sid, auth_token)
 
     body = 'Booking Detail: -- Name: ' + booking.name + ' -- Phone: ' + booking.phone + ' -- Service: ' + booking.service + ' -- Address: ' + booking.address + ' --'
-    message = @client.messages.create(body: body,from: '+19729925765',to: '+923347567120')
+    message = @client.messages.create(body: body,from: '+19729925765',to: '+923086787497')
   end
 end
