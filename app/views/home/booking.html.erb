@@ -6,7 +6,6 @@
         <h1 class="SwKXaiUF5sVFf7o3TkHrI">Book your appointment now</h1>
         <h2 class="_1sXeg7Um0JOssDxy41fhAy">And get instant access to reliable and affordable services</h2>
 
-
 <%= form_for :appointment, url: home_appointment_path do |f| %>
 
 
@@ -73,6 +72,9 @@
 
 <% end %>
 
+        <% if @sucess_msg.present? %>
+            <p class="_1sXeg7Um0JOssDxy41fhAy" style='color: aqua'><%= @sucess_msg %></p>
+        <% end %>
 
     </section>
     <div class="four_div"></div>

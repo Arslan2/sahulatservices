@@ -4,6 +4,10 @@ class HomeController < ApplicationController
   end
 
   def booking
+    if session[:booking_sucess].present?
+      @sucess_msg = session[:booking_sucess]
+      session[:booking_sucess] = nil
+    end
   end
 
   def appointment
@@ -13,6 +17,7 @@ class HomeController < ApplicationController
       UserMailer.send_booking(@booking).deliver_later
 
       send_sms(@booking)
+      session[:booking_sucess] = ['Thankyou ', @booking.name, '!. Our team will contact you shortly'].join
       redirect_to booking_path
     else
       render :booking
