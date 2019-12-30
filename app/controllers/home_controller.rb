@@ -8,6 +8,9 @@ class HomeController < ApplicationController
   def appointment
     @booking = Booking.new(booking_params)
     if @booking.save
+
+      UserMailer.send_booking(@booking).deliver_later
+
       redirect_to booking_path
     else
       render :booking
