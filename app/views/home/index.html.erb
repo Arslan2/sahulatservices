@@ -18,25 +18,19 @@
                     </div>
                 </div>
                 <div class="_1Vw-BPTWNLKPGECJMs2mu8">
-                    <span class="_3vV_AN6orIKTUzsacDDaFZ">
-                        <span class="d-xl-none d-lg-none d-md-block d-block">
-                            <span class="search_icon"><i class="fa fa-search"></i></span>
-                        </span>
-                    </span>
+
                     <div class="_1nWdgpvLgQlilehk2f13Ip _188u3GtaUtRL1HqZGj9sRJ _12flgAAstjcdXCsD_K1PvI">
-                        <div class="">
-                            <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
-                                <input type="search" placeholder="Search for a service" onclick="redirectToBooking()" id="search" class="_2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0" value="">
-                            </div>
+                        <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
+                           <%= select_tag "credit_card", options_for_select(['Electrician', 'Plumber', 'AC Repairing', 'Appliance Repairing'], 'Electrician'), {:onchange => "redirectToBooking();", id: "search", class: "form-control _2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0", style: "width: 100%;height: 100%;font-size: medium;"} %>
                         </div>
 
-                        <div id="result_output" class="table mytable_search_results_table mx-auto mb-0 mb-xl-0 mb-lg-0 mb-md-0 mb-sm-0"></div>
-                        <div id="result" class="_18OSX9Y4Kx8G-K3l-pLCgv">
-                            <ul class="_1Fc9CHjP7ix9zvXgoHLhOy _2YFHV0d6INj_I_v5jSxdoI">
-                            </ul>
+                        <div id="result_output" class="table mytable_search_results_table mx-auto mb-0 mb-xl-0 mb-lg-0 mb-md-0 mb-sm-0">
                         </div>
                     </div>
                     <p class="_2HLbXPghWymhoRQwmL97pe">Eg. Electrician at Home, Plumber, Refrigerator Repair</p>
+                </div>
+
+
                 </div>
             </div> 
                     </section>
@@ -54,7 +48,7 @@
  
     function redirectToBooking()
     {
- 		window.location.replace("/booking");
+       window.location.replace("/booking?service=" + this.event.target.value);
 
     }
 </script>

@@ -44,12 +44,7 @@
                 <div class="_1Vw-BPTWNLKPGECJMs2mu8">
                     <div class="_1nWdgpvLgQlilehk2f13Ip _188u3GtaUtRL1HqZGj9sRJ _12flgAAstjcdXCsD_K1PvI">
                         <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
-
-		
-
-                        	<%= f.select(:service, ['Electrician', 'Plumber', 'AC Repairing', 'Appliance Repairing'], {}, {id: "search", class: "form-control _2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0", style: "width: 100%;height: 100%;font-size: medium;"}) %>
-
-
+                          <%= f.select(:service, ['Electrician', 'Plumber', 'AC Repairing', 'Appliance Repairing'], {selected: params[:service]}, {id: "search", class: "form-control _2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0", style: "width: 100%;height: 100%;font-size: medium;"}) %>
                         </div>
 
                         <div id="result_output" class="table mytable_search_results_table mx-auto mb-0 mb-xl-0 mb-lg-0 mb-md-0 mb-sm-0">
