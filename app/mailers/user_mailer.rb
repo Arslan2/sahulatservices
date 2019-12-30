@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
 
   def send_booking(booking)
     @booking = booking
-    bcc = 'arslan.rao@tintash.com'
+    bcc = 'bilal6342522@gmail.com'
 
     mail(to: 'arslanrao94@gmail.com',
       bcc: bcc,
