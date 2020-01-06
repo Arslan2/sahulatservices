@@ -22,7 +22,7 @@ class HomeController < ApplicationController
 
       UserMailer.send_booking(@booking).deliver_later
 
-      send_sms(@booking)
+      #send_sms(@booking)
       session[:booking_sucess] = ['Thankyou ', @booking.name, '!. Our team will contact you shortly'].join
       redirect_to booking_path
     else
