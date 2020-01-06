@@ -6,6 +6,9 @@ class HomeController < ApplicationController
   def about
   end
 
+  def contact
+  end
+
   def booking
     if session[:booking_sucess].present?
       @sucess_msg = session[:booking_sucess]
