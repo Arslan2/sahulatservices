@@ -2,79 +2,7 @@
 
 <main>
     <section class="hero-sec-class _3fmpyDZmwgiERVmBiqJI2y _5i54RgeUqKBg-1WgZgW2Q" style="background-blend-mode: multiply;">
-        <img src="uploads/booking-cover.jpg" class="hero-image-slider"/>
-        <h1 class="SwKXaiUF5sVFf7o3TkHrI">Book your appointment now</h1>
-        <h2 class="_1sXeg7Um0JOssDxy41fhAy">And get instant access to reliable and affordable services</h2>
-
-<%= form_for :appointment, url: home_appointment_path do |f| %>
-
-
-        <div class="_1d-keXx9N4mVCe6EIDEXyq clearfix">
-
-                <div class="_1Vw-BPTWNLKPGECJMs2mu8">
-                    <div class="_1nWdgpvLgQlilehk2f13Ip _188u3GtaUtRL1HqZGj9sRJ _12flgAAstjcdXCsD_K1PvI">
-                        <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
-                        	<%= f.text_field :name, required: true, type: 'search', placeholder: "Name", id: "search", class: "_2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0" %>
-                        </div>
-
-                        <div id="result_output" class="table mytable_search_results_table mx-auto mb-0 mb-xl-0 mb-lg-0 mb-md-0 mb-sm-0">
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="_1Vw-BPTWNLKPGECJMs2mu8">
-                    <div class="_1nWdgpvLgQlilehk2f13Ip _188u3GtaUtRL1HqZGj9sRJ _12flgAAstjcdXCsD_K1PvI">
-                        <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
-                        	<%= f.text_field :phone, required: true, type: 'search', placeholder: "Phone", id:"search", class: "_2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0" %>
-                        </div>
-
-                        <div id="result_output" class="table mytable_search_results_table mx-auto mb-0 mb-xl-0 mb-lg-0 mb-md-0 mb-sm-0">
-                        </div>
-                    </div>
-                </div>
-        </div>
-
-
-
-
-        <div class="_1d-keXx9N4mVCe6EIDEXyq clearfix">
-
-                <div class="_1Vw-BPTWNLKPGECJMs2mu8">
-                    <div class="_1nWdgpvLgQlilehk2f13Ip _188u3GtaUtRL1HqZGj9sRJ _12flgAAstjcdXCsD_K1PvI">
-                        <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
-                          <%= f.select(:service, ['Electrician', 'Plumber', 'AC Repairing', 'Appliance Repairing'], {selected: params[:service]}, {id: "search", class: "form-control _2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0", style: "width: 100%;height: 100%;font-size: medium;"}) %>
-                        </div>
-
-                        <div id="result_output" class="table mytable_search_results_table mx-auto mb-0 mb-xl-0 mb-lg-0 mb-md-0 mb-sm-0">
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="_1Vw-BPTWNLKPGECJMs2mu8">
-                    <div class="_1nWdgpvLgQlilehk2f13Ip _188u3GtaUtRL1HqZGj9sRJ _12flgAAstjcdXCsD_K1PvI">
-                        <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
-                        	<%= f.text_field :address, required: true, type: 'search', placeholder: "Address", id:"search", class: "_2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0" %>
-                        </div>
-
-                        <div id="result_output" class="table mytable_search_results_table mx-auto mb-0 mb-xl-0 mb-lg-0 mb-md-0 mb-sm-0">
-                        </div>
-                    </div>
-                    <p class="_2HLbXPghWymhoRQwmL97pe">House#, Street#, Block, Colony</p>
-                </div>
-        </div>
-
-        <div class="_1d-keXx9N4mVCe6EIDEXyq clearfix">
-
-		   <%= f.submit 'Book', class: "btn btn-info", style: "margin-top: 25%;min-width: 180px;" %>
-		</div>
-
-<% end %>
-
-        <% if @sucess_msg.present? %>
-            <p class="_1sXeg7Um0JOssDxy41fhAy" style='color: aqua'><%= @sucess_msg %></p>
-        <% end %>
+        <img src="uploads/about-cover.webp" class="hero-image-slider" style="filter: none;"/>
 
     </section>
     <div class="four_div"></div>
@@ -87,6 +15,20 @@
 
 </main>
 
+<section class="mb-0"style="background:#f4f4f4; padding:50px 0px;"> 
+    <div class="container" style="text-align:center;">
+        <div class="row" style="text-align:center;">
+            <div class="col-12 col-md-12" style="text-align:center;">
+                <h2>Our Team</h2>
+				<p style="font-size: larger;">Sahulat <strong>M</strong>echanical, <strong>E</strong>lectrical and <strong>P</strong>lumbing Services <strong>(MEP)</strong> is a leading platform for connecting individuals looking for household services with top quality, pre screened independent service professionals.
+				. <strong>Sahulat MEP</strong> is your very own online space that delivers handyman services efficiently in a very convenient and easy way. Our workers are on the mission of saving you from getting robbed by inexperienced and money-making handyman who are only concerned about the money.</p>
+				<p style="font-size: larger;">
+				<strong>Sahulat MEP</strong> Services is here at your door to change the perception of a handyman  as money snatcher  or just a fixer to a enhancer who brings improvement to your home or work place by providing the best repair,home improvement and mantainance services. You don't have to put your life on hold and risk to fix a door  that no longer closes, try your moist wall , or just any electronics.
+				Our team is just a call away and arrives with all the equipments necessary according to the job nature to provide reliable , efficient and affordable handyman services.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 
@@ -320,152 +262,7 @@
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content" id='modal_id'>
-            <div class="modal-header">
-                <a class="navbar-brand logo" href="#"><img src="photos/images/sahulat-logo.jpg" alt="" style="margin-bottom:-10px; margin-left:10px;"></a>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="container">    
-                    <div id="loginbox" style="margin-top:0px;" class="mainbox col-md-12 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
-                        <div class="panel panel-info" >   
 
-                            <div style="padding-top:0px" class="panel-body" >
-
-                                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-                                <form method="post" action="login" id="loginform" class="form-horizontal" role="form">
-
-
-                                    <div class="col-sm-12 controls">
-                                        <label for="basic-url">Phone Number</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon3"><img src="uploads/flag.png" width="20" height="20">+92</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="phoneNumber" aria-describedby="basic-addon3" placeholder="Your Phone Number" required="required">
-                                            <input type="hidden" id="verificationID" name="verificationID"/>
-                                        </div>
-                                    </div>
-
-                                    <!--<div class="form-group">
-                                        <label for="firstname" class="col-md-3 control-label">Code</label>
-                                        <div class="col-md-12">
-                                            <input type="password" id="password" class="form-control" name="password" placeholder="Code">
-                                        </div>
-                                    </div>-->
-
-
-                                    <div style="margin-top:10px" class="form-group">
-                                        <!-- Button -->
-
-                                        <div class="col-sm-12 controls">
-                                            <button type="button" name="sign-in-button" class="sign-in-button btn btn-dark" id="sign-in-button"><span id='textbutton9'>Continue</span></button>
-                                            <!--<button id="btn-signup" type="button" class="btn btn-default" onClick="$('#loginbox').hide(); $('#signupbox').show()">
-                                                  Sign Up
-                                                  </button>-->
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <div class="col-md-12 control">
-                                            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
-                                                Verify Phone to Continue using Our Services.
-                                                <br><small>This site is protected by reCAPTCHA and the Google 
-                                                    <a href="https://policies.google.com/privacy">Privacy Policy</a> and
-                                                    <a href="https://policies.google.com/terms">Terms of Service</a> apply.
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>    
-                                </form>     
-
-
-
-                            </div>                     
-                        </div>  
-                    </div>
-                    <div id="signupbox" style="display:none; margin-top:0px" class="mainbox col-md-12 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                        <div class="panel panel-info" >
-                            <div class="panel-heading">
-                                <div style="float:right; font-size: 85%; position: relative; top:-10px"></div>
-                            </div>  
-                            <div class="panel-body" >
-                                <form id="signupform" method = "post" action="register" class="form-horizontal" role="form">
-
-                                    <div id="signupalert" style="display:none" class="alert alert-danger">
-                                        <p>Error:</p>
-                                        <span></span>
-                                    </div>
-
-
-
-                                    <div class="form-group">
-                                        <input type="hidden" name="register">
-                                        <label for="email" class="col-md-3 control-label">Username</label>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control" name="username" placeholder="Username">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="firstname" class="col-md-3 control-label">Email</label>
-                                        <div class="col-md-12">
-                                            <input type="email" class="form-control" name="email" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="firstname" class="col-md-3 control-label">Phone</label>
-                                        <div class="col-md-12">
-                                            <input type="tel" class="form-control" name="phone" placeholder="Phone">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="lastname" class="col-md-3 control-label">Passowrd</label>
-                                        <div class="col-md-12">
-                                            <input type="password" class="form-control" name="password" placeholder="Password">
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="form-group">
-                                        <!-- Button -->                                        
-                                        <div class="col-md-offset-3 col-md-9">
-                                            <input id="btn-signup" type="submit" class="btn btn-default" value="Sign Up"> 
-
-                                            <button id="btn-signup" type="button" class="btn btn-default" onclick="$('#signupbox').hide(); $('#loginbox').show()"><i class="icon-hand-right"></i>Sign In</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-12 control">
-                                            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
-                                                You want to Reset Password?
-                                                <a href="forget_password_front_end" onClick="$('#loginbox').hide(); $('#signupbox').show()">
-                                                    Forget Password
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                </form>
-                            </div>
-                        </div>
-
-
-
-
-                    </div> 
-                </div>
-
-
-            </div>
-
-        </div>
 
     </div>
 </div>

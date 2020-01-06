@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'home/index'
   get 'booking', to: 'home#booking'
+  get 'about', to: 'home#about'
   post 'home/appointment'
   root to: 'home#index'
 
