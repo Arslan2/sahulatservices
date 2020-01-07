@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'booking', to: 'home#booking'
   get 'about', to: 'home#about'
   get 'contact', to: 'home#contact'
+  get 'terms_and_conditions', to: 'home#terms_and_conditions'
   post 'home/appointment'
   root to: 'home#index'
 
