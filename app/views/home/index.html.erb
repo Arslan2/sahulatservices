@@ -12,7 +12,9 @@
                             <div class="_25bTNxnaCgmCkB4EMGBxla" id="myelement">
                                 <span class="_2fUFYWAA7dnCEH9-BUvrfq">
                                 </span>
-                                <span class="_2qh4NEDZ9KjZW98gxOQxGC">Sargodha</span>
+                                <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
+                                   <%= select_tag "city", options_for_select(['Sargodha', 'Islamabad'], 'Sargodha'), {id: "city-name", class: "form-control _2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0", style: "width: 100%;height: 100%;font-size: medium;"} %>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -21,7 +23,7 @@
 
                     <div class="_1nWdgpvLgQlilehk2f13Ip _188u3GtaUtRL1HqZGj9sRJ _12flgAAstjcdXCsD_K1PvI">
                         <div class="_2hAL38KLzOgmEOriSGY3QT _1Iq3UDJdQ_staPs1NObXPt _3jCvI3pQUt9W9G6UZOs2lw">
-                           <%= select_tag "credit_card", options_for_select(['Electrician', 'Plumber', 'AC Repairing', 'Appliance Repairing', 'Laundry Service'], 'Electrician'), {:onchange => "redirectToBooking();", id: "search", class: "form-control _2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0", style: "width: 100%;height: 100%;font-size: medium;"} %>
+                           <%= select_tag "credit_card", options_for_select(['Electrician', 'Plumber', 'AC Repairing', 'Appliance Repairing', 'Laundry Service', 'Automobile mechanic', 'Barber', 'CCTV and Security'], 'Electrician'), {:onchange => "redirectToBooking();", id: "search", class: "form-control _2RyUw4qK3q5GZmpjwMkcje _2bZyIA0VQDQOHQMTAdiAr0", style: "width: 100%;height: 100%;font-size: medium;"} %>
                         </div>
 
                         <div id="result_output" class="table mytable_search_results_table mx-auto mb-0 mb-xl-0 mb-lg-0 mb-md-0 mb-sm-0">
@@ -61,6 +63,10 @@
                     <li><a href="/booking"><img src="photos/images/air-conditioner.png" style="height:50px;width:40px;" ><br>Ac</a></li>
                     <li><a href="/booking"><img src="photos/images/frying-pan.png" style="height:50px;width:40px;" ><br>Home Cleaning</a></li>
                     <li><a href="/booking"><img src="photos/images/laundry-icon.png" style="height:50px;width:40px;" ><br>Laundry Service</a></li>
+
+                    <li><a href="/booking"><img src="photos/images/mechanic-car.png" style="height:50px;width:40px;" ><br>Automobile mechanic</a></li>
+                    <li><a href="/booking"><img src="photos/images/barber.png" style="height:50px;width:40px;" ><br>Barber</a></li>
+                    <li><a href="/booking"><img src="photos/images/CCTV.png" style="height:50px;width:40px;" ><br>CCTV and Security Service</a></li>
                 </ul>
             </div>
 
@@ -78,8 +84,19 @@
             <tr style="border-top:0px;">
                 <td><a href="/booking" class="anchor_table_services"><img src="photos/images/frying-pan.png" style="height:50px;width:50px;" ><br>Home Cleaning</a></td>
                 <td><a href="/booking" class="anchor_table_services"><img src="photos/images/laundry-icon.png" style="height:50px;width:50px;" ><br>Laundry Service</a></td>
+                <td><a href="/booking" class="anchor_table_services"><img src="photos/images/mechanic-car.png" style="height:50px;width:50px;" ><br>Automobile mechanic</a></td>
             </tr>
         </tbody>
+
+
+        <tbody>
+            <tr style="border-top:0px;">
+                <td><a href="/booking" class="anchor_table_services"><img src="photos/images/barber.png" style="height:50px;width:50px;" ><br>Barber</a></td>
+                <td><a href="/booking" class="anchor_table_services"><img src="photos/images/CCTV.png" style="height:50px;width:50px;" ><br>CCTV and Security</a></td>
+            </tr>
+        </tbody>
+
+
     </table>
 
 </div>
@@ -160,7 +177,37 @@
 
                                 </div>
                             </div>
-                          
+
+                            <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="/booking" title="Automobile mechanic" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/mechanic-car.jpg" alt="Automobile mechanic">
+                                        <h5 class="servicePanelLabel">Automobile mechanic</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="/booking" title="Barber" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/barber.jpg" alt="Barber">
+                                        <h5 class="servicePanelLabel">Barber</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="carousel-item ">
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <a href="/booking" title="CCTV and Security" class="thumb">
+                                        <img class="img-fluid mx-auto d-block"  style="object-fit:cover!important;height:190px;width:100%;" src="uploads/CCTV.jpeg" alt="CCTV and Security">
+                                        <h5 class="servicePanelLabel">CCTV and Security</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+
+
+
                     </div>
                     <a class="carousel-control-prev productleftcontrol" href="#slider-1" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon productlefticon" aria-hidden="true"></span>
@@ -397,6 +444,16 @@
                                     <a href="/booking">Laundry Service</a>
                                 </li>
 
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="/booking">Automobile mechanic</a>
+                                </li>
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="/booking">Barber</a>
+                                </li>
+                                <li class="Ejoyy-ul-div-two-div-li">
+                                    <a href="/booking">CCTV and Security</a>
+                                </li>
+
                             </ul>
                         </div>
                     </li>
@@ -484,6 +541,17 @@
                     <li class="footer_links_hover">
                         <a href="/booking"> Laundry Service</a>
                     </li>
+
+                    <li class="footer_links_hover">
+                        <a href="/booking"> Automobile mechanic</a>
+                    </li>
+                    <li class="footer_links_hover">
+                        <a href="/booking"> Barber</a>
+                    </li>
+                    <li class="footer_links_hover">
+                        <a href="/booking"> CCTV and Security</a>
+                    </li>
+
                 </ul style="margin-bottom:30px;">
 
             </div>
@@ -577,7 +645,7 @@
         <!-- Modal content-->
         <div class="modal-content" id='modal_id'>
             <div class="modal-header">
-                <a class="navbar-brand logo" href="#"><img src="photos/images/sahulat-logo.jpeg" alt="" style="margin-bottom:-10px; margin-left:10px;"></a>
+                <a class="navbar-brand logo" href="#"><img src="photos/images/sahulat-logo.png" alt="" style="margin-bottom:-10px; margin-left:10px;"></a>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
